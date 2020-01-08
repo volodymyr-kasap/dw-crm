@@ -5,22 +5,21 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {SharedModule} from './shared/shared.module';
-import {GuestLayoutModule} from './layouts/guest/guest-layout.module';
-import {MainLayoutModule} from './layouts/main/main-layout.module';
-
+import {MainLayoutComponent} from './layouts/main/main-layout.component';
+import {GuestLayoutComponent} from './layouts/guest/guest-layout.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    MainLayoutComponent,
+    GuestLayoutComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    SharedModule,
-    MainLayoutModule,
-    GuestLayoutModule
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]
