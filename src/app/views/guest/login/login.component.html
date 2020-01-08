@@ -1,1 +1,34 @@
-<p>login works!</p>
+<section class="login-section p-4 bg-white">
+  <form class="row px-0 mx-0">
+
+    <mat-form-field class="col-12 px-0 mb-3">
+      <mat-label>Логин</mat-label>
+      <input matInput
+             required
+             name="login"
+             placeholder="Логин">
+         </mat-form-field>
+
+    <mat-form-field class="col-12 px-0 mb-3">
+      <mat-label>Пароль</mat-label>
+      <input matInput
+             required
+             name="password"
+             type="password"
+
+             placeholder="Пароль">
+
+    </mat-form-field>
+  </form>
+  <div class="col-12 px-0 d-flex align-items-center">
+
+
+    <button class="ml-auto"
+            mat-raised-button
+            type="submit"
+
+            color="primary">
+      Войти
+    </button>
+  </div>
+</section>

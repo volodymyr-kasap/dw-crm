@@ -18,8 +18,7 @@ import {GuestLayoutComponent} from './layouts/guest/guest-layout.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule,
-    SharedModule
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

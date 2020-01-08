@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import {Routes, RouterModule, PreloadAllModules} from '@angular/router';
 import {MainLayoutComponent} from './layouts/main/main-layout.component';
 import {AuthGuard} from './guards/auth.guard';
 import {GuestLayoutComponent} from './layouts/guest/guest-layout.component';
@@ -15,6 +15,9 @@ const routes: Routes = [
         }
       ],
       canActivate: [
+        AuthGuard
+      ],
+      canActivateChild: [
         AuthGuard
       ]
     },
@@ -35,7 +38,9 @@ const routes: Routes = [
   ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {
+    preloadingStrategy: PreloadAllModules
+  })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
