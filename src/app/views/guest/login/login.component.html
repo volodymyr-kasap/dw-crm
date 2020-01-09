@@ -1,13 +1,18 @@
 <section class="login-section p-4 bg-white">
-  <form class="row px-0 mx-0">
+  <form
+    class="row px-0 mx-0"
+    [formGroup]="loginForm"
+    (ngSubmit)="login()">
 
     <mat-form-field class="col-12 px-0 mb-3">
       <mat-label>Логин</mat-label>
       <input matInput
              required
              name="login"
-             placeholder="Логин">
-         </mat-form-field>
+             formControlName="login"
+             placeholder="Введите логин">
+      <mat-error *ngIf="loginForm.controls.login.invalid">Необходимо ввести логин</mat-error>
+      </mat-form-field>
 
     <mat-form-field class="col-12 px-0 mb-3">
       <mat-label>Пароль</mat-label>
@@ -15,20 +20,19 @@
              required
              name="password"
              type="password"
-
-             placeholder="Пароль">
-
+             autocomplete="on"
+             formControlName="password"
+             placeholder="Введите пароль">
+      <mat-error *ngIf="loginForm.controls.password.invalid">Необходимо ввести пароль</mat-error>
     </mat-form-field>
+
+    <div class="col-12 px-0 d-flex align-items-center">
+      <button class="ml-auto"
+              mat-raised-button
+              type="submit"
+              color="primary">
+        Войти
+      </button>
+    </div>
   </form>
-  <div class="col-12 px-0 d-flex align-items-center">
-
-
-    <button class="ml-auto"
-            mat-raised-button
-            type="submit"
-
-            color="primary">
-      Войти
-    </button>
-  </div>
 </section>
