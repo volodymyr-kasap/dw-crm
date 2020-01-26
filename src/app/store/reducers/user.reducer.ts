@@ -1,10 +1,9 @@
 import {UserAction, UserUnion} from '../actions/user.actions';
 import {User} from '../../models/user.models';
-import {JwtToken} from '../../interfaces/jwt-token';
 
 export interface State  {
   user: User;
-  token: JwtToken;
+  token: string;
 }
 
 export const initialState: State = {

@@ -1,0 +1,10 @@
+@import "colors";
+
+a {
+  text-decoration: none;
+  color: $link-color;
+}
+
+.bg-white {
+  background-color: $white-color !important;
+}

@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot} from '@angular/router';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {Store} from '@ngrx/store';
-import * as indexReducer from '../store';
+import * as indexReducer from '../../store';
 import {decode} from 'punycode';
 const jwtHelper = new JwtHelperService();
 

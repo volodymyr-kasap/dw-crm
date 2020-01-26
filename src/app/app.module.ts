@@ -9,7 +9,7 @@ import {AuthService} from './services/auth.service';
 import {HttpClientModule} from '@angular/common/http';
 import {StoreModule} from '@ngrx/store';
 import {reducers} from './store';
-import {httpInterceptorProviders} from './interceptors';
+import {httpInterceptorProviders} from './core/interceptors';
 
 
 @NgModule({

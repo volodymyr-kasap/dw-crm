@@ -1,12 +1,12 @@
 import {Store} from '@ngrx/store';
 import {Router} from '@angular/router';
-import {HttpClient, HttpParams} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpParams} from '@angular/common/http';
 import * as indexReducer from '../store/index';
 import {AuthForm} from '../interfaces/auth-form';
-import {JwtToken} from '../interfaces/jwt-token';
 import {SetUserInfo, SetUserJwtToken} from '../store/actions/user.actions';
 import {User} from '../models/user.models';
 import {Injectable} from '@angular/core';
+import {catchError} from 'rxjs/operators';
 
 
 @Injectable({
@@ -26,11 +26,11 @@ export class AuthService {
       params = params.append(key, loginForm[key]);
     });
     console.log(params);
-    this.http.post<JwtToken>('Account/Authorize', params)
-      .subscribe(jwt => {
-        if (jwt) {
-          console.log(jwt);
-          this.store.dispatch(new SetUserJwtToken(jwt));
+    this.http.post<string>('Account/Authorize', params)
+      .subscribe(res => {
+        if (res) {
+          console.log(res);
+          this.store.dispatch(new SetUserJwtToken(res));
           this.getUser();
           this.router.navigate(['/']);
         }
@@ -38,6 +38,27 @@ export class AuthService {
       error => {
         console.log(error);
       } );
+  }
+
+  public makeRegister(registerForm: AuthForm) {
+    return this.http.post<string>('register', registerForm)
+      .pipe(
+        catchError(error => this.errorHandler(error))
+      )
+      .subscribe(jwt => {
+          debugger
+          if (jwt) {
+            console.log(jwt);
+            this.store.dispatch(new SetUserJwtToken(jwt));
+            this.getUser();
+            this.router.navigate(['/']);
+          }
+        });
+      .
+  }
+
+  private errorHandler(error: HttpErrorResponse) {
+    console.log(error);
   }
 
   getUser() {

@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import { HttpInterceptor, HttpHandler, HttpRequest, HttpHeaders } from '@angular/common/http';
 import {Store} from '@ngrx/store';
-import * as indexReducer from '../store';
+import * as indexReducer from '../../store';
 
 @Injectable()
 export class RequestInterceptor implements HttpInterceptor {
@@ -16,7 +16,7 @@ export class RequestInterceptor implements HttpInterceptor {
     this.store.select(state => state.application.baseUrl).subscribe(state => {
       baseUrl = state;
     });
-    this.store.select(state => state.user.token.jwtToken).subscribe(state => {
+    this.store.select(state => state.user.token).subscribe(state => {
       if (state) {
         token = state;
       }
@@ -27,7 +27,7 @@ export class RequestInterceptor implements HttpInterceptor {
       headers = headers.set('authorization', 'Bearer ' + token);
     }
 
-    const newReq = req.clone({url: `${baseUrl}/api/${req.url}`, headers});
+    const newReq = req.clone({url: `${baseUrl}/${req.url}`, headers});
 
     return next.handle(newReq);
   }

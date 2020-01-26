@@ -5,7 +5,7 @@ export interface State  {
 }
 
 export const initialState: State = {
-  baseUrl: 'http://dw.z-price.com'
+  baseUrl: 'http://localhost:3000'
 };
 
 export function applicationReducer(state = initialState, action: ApplicationUnion) {

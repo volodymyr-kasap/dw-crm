@@ -1,6 +1,5 @@
 import {Action} from '@ngrx/store';
 import {User} from '../../models/user.models';
-import {JwtToken} from '../../interfaces/jwt-token';
 
 export enum UserAction {
   GetUserInfo = '[User] GetUserInfo',
@@ -21,7 +20,7 @@ export class SetUserInfo implements Action {
 export class SetUserJwtToken implements Action {
   readonly type = UserAction.SetUserJwtToken;
 
-  constructor(public payload: JwtToken) { }
+  constructor(public payload: string) { }
 }
 
 export type UserUnion = GetUserInfo | SetUserInfo | SetUserJwtToken;

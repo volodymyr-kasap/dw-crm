@@ -1,7 +1,5 @@
 @import "node_modules/bootstrap/scss/bootstrap-grid";
+@import "app/styles/global.scss";
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
-.bg-white {
-  background-color: $white !important;
-}

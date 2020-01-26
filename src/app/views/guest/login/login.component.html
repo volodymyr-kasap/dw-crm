@@ -5,13 +5,13 @@
     (ngSubmit)="login()">
 
     <mat-form-field class="col-12 px-0 mb-3">
-      <mat-label>Логин</mat-label>
+      <mat-label>Email</mat-label>
       <input matInput
              required
-             name="login"
-             formControlName="login"
-             placeholder="Введите логин">
-      <mat-error *ngIf="loginForm.controls.login.invalid">Необходимо ввести логин</mat-error>
+             name="email"
+             formControlName="email"
+             placeholder="email">
+      <mat-error *ngIf="loginForm.controls.email.invalid">Необходимо ввести email</mat-error>
       </mat-form-field>
 
     <mat-form-field class="col-12 px-0 mb-3">
@@ -27,11 +27,12 @@
     </mat-form-field>
 
     <div class="col-12 px-0 d-flex align-items-center">
+      <a [routerLink]="['/Guest/Register']">Перейти к регистрации</a>
       <button class="ml-auto"
               mat-raised-button
               type="submit"
               color="primary">
-        Войти
+        Авторизироваться
       </button>
     </div>
   </form>

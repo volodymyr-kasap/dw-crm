@@ -1,125 +1,126 @@
 // Глобальная цветовая палитра
+//$dark-gray: #303030;
+
+//$light-blue: #3c4252;
+//$sub-title: #48505e;
+//$border-color: #dee0e8;
+
 $dark-blue: #2d323d;
-$dark-gray: #303030;
-
-$light-blue: #3c4252;
 $link-color: #6884c1;
-$sub-title: #48505e;
-$border-color: #dee0e8;
-
-$accent-color: #6884c1;
-$selection-color: #e71baa;
-$not-data-color: #7f899b;
-
-$primary-color: #4e70ba;
-$info-color: #2275a5;
-$success-color: #158f44;
-$danger-color: #c51c24;
-$warning-color: #db8b22;
-$secondary-color: #6c757d;
 $white-color: #ffffff;
 
-// Цвет фона приложения
-$app-background-color: #efefef;
+//$accent-color: #6884c1;
+//$selection-color: #e71baa;
+//$not-data-color: #7f899b;
+//
+//$primary-color: #4e70ba;
+//$info-color: #2275a5;
+//$success-color: #158f44;
+//$danger-color: #c51c24;
+//$warning-color: #db8b22;
+//$secondary-color: #6c757d;
+//
+//// Цвет фона приложения
+//$app-background-color: #efefef;
+//
+//// Цветовая палитра для тостов
+//$success-background: #698566;
+//$success-border: #5f7b5c;
+//$success-button: #4b6048;
+//
+//$error-background: #874f4f;
+//$error-border: #7c4848;
+//$error-button: #593232;
+//
+//$info-background: #667185;
+//$info-border: #5c677b;
+//$info-button: #3f4654;
+//
+//$green-palet: #9cd5b4;
+//
+//$gold: #efba3e;
+//
+//$blue-level-one: #adfffb;
+//$blue-level-two: #91bdff;
+//$blue-level-three: #2cd49f;
+//
+//$priority-color-one: #E6E6E6;
+//$priority-color-two: #87D146;
+//$priority-color-three: #FFE567;
+//$priority-color-four: #FFC8EA;
+//$priority-color-five: #C51C24;
 
-// Цветовая палитра для тостов
-$success-background: #698566;
-$success-border: #5f7b5c;
-$success-button: #4b6048;
-
-$error-background: #874f4f;
-$error-border: #7c4848;
-$error-button: #593232;
-
-$info-background: #667185;
-$info-border: #5c677b;
-$info-button: #3f4654;
-
-$green-palet: #9cd5b4;
-
-$gold: #efba3e;
-
-$blue-level-one: #adfffb;
-$blue-level-two: #91bdff;
-$blue-level-three: #2cd49f;
-
-$priority-color-one: #E6E6E6;
-$priority-color-two: #87D146;
-$priority-color-three: #FFE567;
-$priority-color-four: #FFC8EA;
-$priority-color-five: #C51C24;
-
-// Классы для цветов приоритета задача
-::ng-deep .priority-color-one {
-  color: $priority-color-one !important;
-}
-::ng-deep .priority-color-two {
-  color: $priority-color-two !important;
-}
-::ng-deep .priority-color-three {
-  color: $priority-color-three !important;
-}
-::ng-deep .priority-color-four {
-  color: $priority-color-four !important;
-}
-::ng-deep .priority-color-five {
-  color: $priority-color-five !important;
-}
-
-// Классы для текста
-::ng-deep .brown-color {
-  color: $error-background !important;
-}
-::ng-deep .text-primary {
-  color: $primary-color !important;
-}
-::ng-deep .blue-level-one {
-  color: $blue-level-one !important;
-}
-::ng-deep .blue-level-two {
-  color: $blue-level-two !important;
-}
-::ng-deep .blue-level-three {
-  color: $blue-level-three !important;
-}
-::ng-deep .green-palet {
-  color: $green-palet !important;
-}
-::ng-deep .selection-color {
-  color: $selection-color !important;
-}
-::ng-deep .text-info {
-  color: $info-color !important;
-}
-::ng-deep .text-success {
-  color: $success-color !important;
-}
-::ng-deep .text-danger {
-  color: $danger-color !important;
-}
-::ng-deep .text-warning {
-  color: $warning-color !important;
-}
-::ng-deep .text-secondary {
-  color: $secondary-color !important;
-}
-::ng-deep .text-accent {
-  color: $accent-color !important;
-}
-
-// Классы для фона
-::ng-deep .bg-primary {
-  background-color: $primary-color !important;
-}
-::ng-deep .bg-info {
-  background-color: $info-color !important;
-}
-::ng-deep .bg-success {
-  background-color: $success-color !important;
-}
-::ng-deep .bg-danger {
-  background-color: $danger-color !important;
-}
-::ng-deep .bg-warning {
-  background-color: $warning-color !important;
-}
+//// Классы для цветов приоритета задача
+//::ng-deep .priority-color-one {
+//  color: $priority-color-one !important;
+//}
+//::ng-deep .priority-color-two {
+//  color: $priority-color-two !important;
+//}
+//::ng-deep .priority-color-three {
+//  color: $priority-color-three !important;
+//}
+//::ng-deep .priority-color-four {
+//  color: $priority-color-four !important;
+//}
+//::ng-deep .priority-color-five {
+//  color: $priority-color-five !important;
+//}
+//
+//// Классы для текста
+//::ng-deep .brown-color {
+//  color: $error-background !important;
+//}
+//::ng-deep .text-primary {
+//  color: $primary-color !important;
+//}
+//::ng-deep .blue-level-one {
+//  color: $blue-level-one !important;
+//}
+//::ng-deep .blue-level-two {
+//  color: $blue-level-two !important;
+//}
+//::ng-deep .blue-level-three {
+//  color: $blue-level-three !important;
+//}
+//::ng-deep .green-palet {
+//  color: $green-palet !important;
+//}
+//::ng-deep .selection-color {
+//  color: $selection-color !important;
+//}
+//::ng-deep .text-info {
+//  color: $info-color !important;
+//}
+//::ng-deep .text-success {
+//  color: $success-color !important;
+//}
+//::ng-deep .text-danger {
+//  color: $danger-color !important;
+//}
+//::ng-deep .text-warning {
+//  color: $warning-color !important;
+//}
+//::ng-deep .text-secondary {
+//  color: $secondary-color !important;
+//}
+//::ng-deep .text-accent {
+//  color: $accent-color !important;
+//}
+//
+//// Классы для фона
+//::ng-deep .bg-primary {
+//  background-color: $primary-color !important;
+//}
+//::ng-deep .bg-info {
+//  background-color: $info-color !important;
+//}
+//::ng-deep .bg-success {
+//  background-color: $success-color !important;
+//}
+//::ng-deep .bg-danger {
+//  background-color: $danger-color !important;
+//}
+//::ng-deep .bg-warning {
+//  background-color: $warning-color !important;
+//}
