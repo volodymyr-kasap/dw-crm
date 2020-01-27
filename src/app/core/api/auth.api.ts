@@ -1,24 +1,23 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpParams} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
+import {AuthForm} from '../../interfaces/auth-form';
+import {Observable} from 'rxjs';
 
 
 @Injectable({ providedIn: 'root' })
-export class AuthenticationApiService {
+export class AuthApi {
   constructor(
     private http: HttpClient,
   ) { }
 
 
-  login(loginForm: any) {
-    let params = new HttpParams();
-    params = params.append('login', loginForm.login);
-    params = params.append('password', loginForm.password);
-    return this.http.post<any>('Account/Authorize', params);
+  login(loginForm: AuthForm): Observable<string> {
+    return this.http.post<string>('login', loginForm);
   }
 
-
-  getUser() {
-    return this.http.get<any>(`Account/GetUserInfo`);
+  register(registerForm: AuthForm): Observable<string> {
+    return this.http.post<string>('register', registerForm);
   }
+
 
 }
