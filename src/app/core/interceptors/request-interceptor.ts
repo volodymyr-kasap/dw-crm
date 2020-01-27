@@ -1,7 +1,9 @@
 import {Injectable} from '@angular/core';
-import { HttpInterceptor, HttpHandler, HttpRequest, HttpHeaders } from '@angular/common/http';
+import {HttpInterceptor, HttpHandler, HttpRequest, HttpHeaders, HttpEvent, HttpErrorResponse} from '@angular/common/http';
 import {Store} from '@ngrx/store';
 import * as indexReducer from '../../store';
+import {Observable, throwError} from 'rxjs';
+import {catchError, tap} from 'rxjs/operators';
 
 @Injectable()
 export class RequestInterceptor implements HttpInterceptor {
@@ -10,7 +12,12 @@ export class RequestInterceptor implements HttpInterceptor {
     private store: Store<indexReducer.State>
   ) {}
 
-  intercept(req: HttpRequest<any>, next: HttpHandler) {
+  static errorHandler(error: HttpErrorResponse) {
+    console.log(error);
+    return throwError(error);
+  }
+
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let baseUrl = '';
     let token = '';
     this.store.select(state => state.application.baseUrl).subscribe(state => {
@@ -29,6 +36,9 @@ export class RequestInterceptor implements HttpInterceptor {
 
     const newReq = req.clone({url: `${baseUrl}/${req.url}`, headers});
 
-    return next.handle(newReq);
+    return next.handle(newReq)
+      .pipe(
+        catchError(error => RequestInterceptor.errorHandler(error))
+      );
   }
 }
