@@ -1,0 +1,39 @@
+<section class="login-section p-4 bg-white">
+  <form
+    class="row px-0 mx-0"
+    [formGroup]="registerForm"
+    (ngSubmit)="register()">
+
+    <mat-form-field class="col-12 px-0 mb-3">
+      <mat-label>Email</mat-label>
+      <input matInput
+             required
+             name="email"
+             formControlName="email"
+             placeholder="Введите email">
+      <mat-error *ngIf="registerForm.controls.email.invalid">Необходимо ввести email</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="col-12 px-0 mb-3">
+      <mat-label>Пароль</mat-label>
+      <input matInput
+             required
+             name="password"
+             type="password"
+             autocomplete="on"
+             formControlName="password"
+             placeholder="Введите пароль">
+      <mat-error *ngIf="registerForm.controls.password.invalid">Необходимо ввести пароль</mat-error>
+    </mat-form-field>
+
+    <div class="col-12 px-0 d-flex align-items-center">
+      <a [routerLink]="['/Guest/Login']">Перейти к авторизации</a>
+      <button class="ml-auto"
+              mat-raised-button
+              type="submit"
+              color="primary">
+        Зарегистрироваться
+      </button>
+    </div>
+  </form>
+</section>
