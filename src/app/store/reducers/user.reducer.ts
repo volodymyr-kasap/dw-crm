@@ -11,7 +11,7 @@ export const initialState: State = {
   token: null,
 };
 
-export function userReducer(state: State = initialState, action: UserUnion) {
+export function userReducer(state: State = initialState, action: UserUnion)  {
   switch (action.type) {
     case UserAction.SetUserInfo:
       return {

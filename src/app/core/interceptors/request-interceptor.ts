@@ -3,7 +3,8 @@ import {HttpInterceptor, HttpHandler, HttpRequest, HttpHeaders, HttpEvent, HttpE
 import {Store} from '@ngrx/store';
 import * as indexReducer from '../../store';
 import {Observable, throwError} from 'rxjs';
-import {catchError, tap} from 'rxjs/operators';
+import {catchError, finalize} from 'rxjs/operators';
+import {SetQueryProgressBar} from '../../store/actions/application.actions';
 
 @Injectable()
 export class RequestInterceptor implements HttpInterceptor {
@@ -18,6 +19,7 @@ export class RequestInterceptor implements HttpInterceptor {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    this.store.dispatch(new SetQueryProgressBar(true));
     let baseUrl = '';
     let token = '';
     this.store.select(state => state.application.baseUrl).subscribe(state => {
@@ -38,7 +40,8 @@ export class RequestInterceptor implements HttpInterceptor {
 
     return next.handle(newReq)
       .pipe(
-        catchError(error => RequestInterceptor.errorHandler(error))
+        catchError(error => RequestInterceptor.errorHandler(error)),
+        finalize(() => this.store.dispatch(new SetQueryProgressBar(false)))
       );
   }
 }

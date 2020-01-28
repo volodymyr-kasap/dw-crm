@@ -10,11 +10,14 @@ import {HttpClientModule} from '@angular/common/http';
 import {StoreModule} from '@ngrx/store';
 import {reducers} from './store';
 import {httpInterceptorProviders} from './core/interceptors';
+import {QueryProgressBarComponent} from './components/layout/query-progress-bar/query-progress-bar.component';
+import {SharedModule} from './shared/shared.module';
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    QueryProgressBarComponent,
     MainLayoutComponent,
     GuestLayoutComponent
   ],
@@ -23,7 +26,8 @@ import {httpInterceptorProviders} from './core/interceptors';
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    StoreModule.forRoot(reducers)
+    StoreModule.forRoot(reducers),
+    SharedModule
   ],
   providers: [
     httpInterceptorProviders,

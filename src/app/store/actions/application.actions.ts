@@ -2,7 +2,7 @@ import {Action} from '@ngrx/store';
 
 export enum ApplicationAction {
   EditBaseUrl = '[App] EditBaseUrl',
-
+  SetQueryProgressBar = '[App] SetQueryProgressBar'
 }
 
 export class EditBaseUrl implements Action {
@@ -11,4 +11,10 @@ export class EditBaseUrl implements Action {
   constructor(public payload: string) {}
 }
 
-export type ApplicationUnion = EditBaseUrl;
+export class SetQueryProgressBar implements Action {
+  readonly type = ApplicationAction.SetQueryProgressBar;
+
+  constructor(public payload: boolean) {}
+}
+
+export type ApplicationUnion = EditBaseUrl | SetQueryProgressBar;
