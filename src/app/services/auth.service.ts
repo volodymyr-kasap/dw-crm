@@ -5,6 +5,7 @@ import {AuthForm} from '../interfaces/auth-form';
 import {SetUserJwtToken} from '../store/actions/user.actions';
 import {Injectable} from '@angular/core';
 import {AuthApi} from '../core/api/auth.api';
+import {AccessToken} from '../interfaces/access-token';
 
 
 @Injectable({
@@ -20,9 +21,9 @@ export class AuthService {
 
   public makeLogin(loginForm: AuthForm) {
     this.authApi.login(loginForm)
-      .subscribe((res: string) => {
+      .subscribe((res: AccessToken) => {
         if (res) {
-          this.store.dispatch(new SetUserJwtToken(res));
+          this.store.dispatch(new SetUserJwtToken(res.accessToken));
           this.router.navigate(['/']);
         }
       });
@@ -30,9 +31,9 @@ export class AuthService {
 
   public makeRegister(registerForm: AuthForm) {
     this.authApi.register(registerForm)
-      .subscribe((res: string) => {
+      .subscribe((res: AccessToken) => {
         if (res) {
-          this.store.dispatch(new SetUserJwtToken(res));
+          this.store.dispatch(new SetUserJwtToken(res.accessToken));
           this.router.navigate(['/']);
         }
       });

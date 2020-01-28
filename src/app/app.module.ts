@@ -8,9 +8,9 @@ import {GuestLayoutComponent} from './layouts/guest/guest-layout.component';
 import {AuthService} from './services/auth.service';
 import {HttpClientModule} from '@angular/common/http';
 import {StoreModule} from '@ngrx/store';
-import {reducers} from './store';
+import {metaReducers, reducers} from './store';
 import {httpInterceptorProviders} from './core/interceptors';
-import {QueryProgressBarComponent} from './components/layout/query-progress-bar/query-progress-bar.component';
+import {QueryProgressBarComponent} from './components/query-progress-bar/query-progress-bar.component';
 import {SharedModule} from './shared/shared.module';
 
 
@@ -26,7 +26,7 @@ import {SharedModule} from './shared/shared.module';
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    StoreModule.forRoot(reducers),
+    StoreModule.forRoot(reducers, { metaReducers }),
     SharedModule
   ],
   providers: [

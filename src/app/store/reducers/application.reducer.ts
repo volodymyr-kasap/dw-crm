@@ -2,27 +2,33 @@ import {ApplicationAction, ApplicationUnion} from '../actions/application.action
 
 export interface State {
   baseUrl: string;
-  queryProgressBar: boolean;
+  showQueryProgressBar: boolean;
 }
 
 export const initialState: State = {
   baseUrl: 'http://localhost:3000',
-  queryProgressBar: false
+  showQueryProgressBar: false
 };
 
-export function applicationReducer(state: State = initialState, action: ApplicationUnion)  {
+export function applicationReducer(state: State = initialState, action: ApplicationUnion) {
   switch (action.type) {
     case ApplicationAction.EditBaseUrl:
       return {
         ...state,
         baseUrl: action.payload
       };
-    case ApplicationAction.SetQueryProgressBar:
+    case ApplicationAction.HideQueryProgressBar:
       return {
         ...state,
-        queryProgressBar: action.payload
+        showQueryProgressBar: false
+      };
+    case ApplicationAction.ShowQueryProgressBar:
+      return {
+        ...state,
+        showQueryProgressBar: true
       };
     default:
       return state;
   }
 }
+

@@ -1,15 +1,26 @@
-import {ActionReducerMap} from '@ngrx/store';
+import {ActionReducer, ActionReducerMap, MetaReducer} from '@ngrx/store';
 
-import * as user from './reducers/user.reducer';
-import * as application from './reducers/application.reducer';
+import * as fromUser from './reducers/user.reducer';
+import * as fromApplication from './reducers/application.reducer';
 
 
 export interface State {
-  user: user.State;
-  application: application.State;
+  user: fromUser.State;
+  application: fromApplication.State;
 }
 
 export const reducers: ActionReducerMap<State> = {
-  application: application.applicationReducer,
-  user: user.userReducer
+  application: fromApplication.applicationReducer,
+  user: fromUser.userReducer
 };
+
+export function logger(reducer: ActionReducer<State>): ActionReducer<State> {
+  return (state: State, action: any): State => {
+    console.log('state', state);
+    console.log('action', action);
+    return reducer(state, action);
+  };
+}
+
+export const metaReducers: MetaReducer<State>[] = [logger];
+

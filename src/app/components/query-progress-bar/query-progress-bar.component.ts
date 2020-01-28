@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import * as indexReducer from '../../../store';
-import {Store} from '@ngrx/store';
+import * as indexReducer from '../../store';
+import {select, Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
 
 @Component({
@@ -10,15 +10,12 @@ import {Observable} from 'rxjs';
 })
 export class QueryProgressBarComponent implements OnInit {
 
-  public isLoading: boolean;
+  public isLoading$: Observable<boolean>;
 
   constructor(
     private store: Store<indexReducer.State>
   ) {
-    this.store.select(state => state.application.queryProgressBar).subscribe(value => {
-      this.isLoading = value;
-      console.log(this.isLoading);
-    });
+    this.isLoading$ = store.pipe(select(state => state.application.showQueryProgressBar));
   }
 
   ngOnInit() {

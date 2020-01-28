@@ -2,7 +2,8 @@ import {Action} from '@ngrx/store';
 
 export enum ApplicationAction {
   EditBaseUrl = '[App] EditBaseUrl',
-  SetQueryProgressBar = '[App] SetQueryProgressBar'
+  HideQueryProgressBar = '[App] HideQueryProgressBar',
+  ShowQueryProgressBar = '[App] ShowQueryProgressBar'
 }
 
 export class EditBaseUrl implements Action {
@@ -11,10 +12,12 @@ export class EditBaseUrl implements Action {
   constructor(public payload: string) {}
 }
 
-export class SetQueryProgressBar implements Action {
-  readonly type = ApplicationAction.SetQueryProgressBar;
-
-  constructor(public payload: boolean) {}
+export class HideQueryProgressBar implements Action {
+  readonly type = ApplicationAction.HideQueryProgressBar;
 }
 
-export type ApplicationUnion = EditBaseUrl | SetQueryProgressBar;
+export class ShowQueryProgressBar implements Action {
+  readonly type = ApplicationAction.ShowQueryProgressBar;
+}
+
+export type ApplicationUnion = EditBaseUrl | HideQueryProgressBar | ShowQueryProgressBar;
