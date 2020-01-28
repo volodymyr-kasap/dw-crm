@@ -2,12 +2,20 @@
 //$dark-gray: #303030;
 
 //$light-blue: #3c4252;
-//$sub-title: #48505e;
 //$border-color: #dee0e8;
 
-$dark-blue: #2d323d;
+$title-color: #48505e;
+$dark-blue-color: #2d323d;
 $link-color: #6884c1;
 $white-color: #ffffff;
+
+.color-title {
+  color: $title-color !important;
+}
+
+.bg-white {
+  background-color: $white-color !important;
+}
 
 //$accent-color: #6884c1;
 //$selection-color: #e71baa;

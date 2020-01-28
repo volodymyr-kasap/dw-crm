@@ -22,7 +22,7 @@ export function userReducer(state: State = initialState, action: UserUnion) {
       return {
         ...state,
         token: action.payload
-      }
+      };
     default:
       return state;
   }

@@ -22,7 +22,6 @@ export class AuthService {
     this.authApi.login(loginForm)
       .subscribe((res: string) => {
         if (res) {
-          console.log(res);
           this.store.dispatch(new SetUserJwtToken(res));
           this.router.navigate(['/']);
         }
@@ -33,11 +32,10 @@ export class AuthService {
     this.authApi.register(registerForm)
       .subscribe((res: string) => {
         if (res) {
-          console.log(res);
           this.store.dispatch(new SetUserJwtToken(res));
           this.router.navigate(['/']);
         }
-      })
+      });
   }
 
 }

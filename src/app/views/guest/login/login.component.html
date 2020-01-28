@@ -1,21 +1,42 @@
-<section class="login-section p-4 bg-white">
+<section class="border-radius-8px p-4 bg-white">
   <form
     class="row px-0 mx-0"
     [formGroup]="loginForm"
-    (ngSubmit)="login()">
+    (ngSubmit)="login()"
+    (keydown)="($event.key === 'Enter')? login() : null">
+
+    <div class="col-12 px-0 d-flex justify-content-center mb-3">
+      <span class="font-size-22px color-title">
+        <i class="fas fa-sign-in-alt mr-1"></i>
+        Авторизация
+      </span>
+    </div>
 
     <mat-form-field class="col-12 px-0 mb-3">
       <mat-label>Email</mat-label>
+      <span matPrefix>
+        <i
+        [ngClass]="{
+          'fa-smile': loginForm.controls.email.valid || !loginForm.controls.email.touched,
+          'fa-frown': !loginForm.controls.email.valid && loginForm.controls.email.touched,
+          'far pr-1': true
+          }">
+        </i>                                &nbsp;
+      </span>
       <input matInput
              required
+             autofocus
              name="email"
              formControlName="email"
-             placeholder="email">
+             placeholder="Введите Email">
       <mat-error *ngIf="loginForm.controls.email.invalid">Необходимо ввести email</mat-error>
       </mat-form-field>
 
-    <mat-form-field class="col-12 px-0 mb-3">
+    <mat-form-field class="col-12 px-0 mb-4">
       <mat-label>Пароль</mat-label>
+      <span matPrefix>
+        <i class="fas fa-key pr-1"></i>&nbsp;
+      </span>
       <input matInput
              required
              name="password"
@@ -27,7 +48,11 @@
     </mat-form-field>
 
     <div class="col-12 px-0 d-flex align-items-center">
-      <a [routerLink]="['/Guest/Register']">Перейти к регистрации</a>
+      <a
+        [routerLink]="['/Guest/Register']">
+        <i class="fas fa-user-plus mr-1"></i>
+        Перейти к регистрации
+      </a>
       <button class="ml-auto"
               mat-raised-button
               type="submit"

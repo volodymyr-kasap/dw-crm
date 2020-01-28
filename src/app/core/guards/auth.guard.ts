@@ -3,7 +3,6 @@ import {Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot} from '
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {Store} from '@ngrx/store';
 import * as indexReducer from '../../store';
-import {decode} from 'punycode';
 const jwtHelper = new JwtHelperService();
 
 
@@ -11,12 +10,19 @@ const jwtHelper = new JwtHelperService();
 export class AuthGuard implements CanActivate {
 
   constructor(
-    private router: Router) { }
+    private router: Router,
+    private store: Store<indexReducer.State>
+  ) { }
 
   canActivate(route: ActivatedRouteSnapshot): boolean {
-    const token = localStorage.getItem('token');
+    let token = '';
+    this.store.select(state => state.user.token).subscribe(tkn => {
+      token = tkn;
+    });
     if (token) {
-      return !jwtHelper.isTokenExpired(token);
+      return true;
+     // TODO: TypeError: token.split is not a function
+     // return !jwtHelper.isTokenExpired(token);
     } else {
       this.router.navigate(['Guest', 'Login']);
       return false;
