@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {AuthFormInterface} from '../../interfaces/auth-form.interface';
-import {forkJoin, Observable} from 'rxjs';
+import {Observable} from 'rxjs';
 import {AccessTokenInterface} from '../../interfaces/access-token.interface';
-import {MainApi} from './main.api';
 import {User} from '../../models/user.models';
-
 
 @Injectable({ providedIn: 'root' })
 export class AuthApi {

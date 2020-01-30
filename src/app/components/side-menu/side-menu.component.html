@@ -1,0 +1,72 @@
+<div
+  [ngClass]="{
+    'menu-wrapper': true,
+    'menu-is-open': isOpened,
+    'menu-is-close': !isOpened
+  }"
+  [ngStyle]="{
+    'width': menuWidth
+  }">
+
+  <div
+    class="header">
+    <div class="top-side">
+      <button
+        id="pin-menu-btn"
+        mat-icon-button
+        (click)="changeMenuFixation()">
+        <i class="fas fa-bars fa-lg"></i>
+      </button>
+    </div>
+    <div
+      [style.width]="menuSizes.opened"
+      class="user-data">
+      <div
+        [ngClass]="{
+                'user-data-hidden': !isOpened
+            }"
+        class="user-login">
+        {{ (userInfo | async).Email }}
+      </div>
+      <div
+        [ngClass]="{
+                'user-data-hidden': !isOpened
+            }"
+        class="user-mail">
+        {{ (userInfo | async).Email }}
+      </div>
+
+<!--      <app-profile-avatar-->
+<!--        class="user-photo"-->
+<!--        [userName]="(userInfo | async).Name"-->
+<!--        [ngClass]="{-->
+<!--                    'user-photo-visible': isOpened,-->
+<!--                    'user-photo-hidden': !isOpened-->
+<!--                }">-->
+<!--      </app-profile-avatar>-->
+    </div>
+  </div>
+  <div
+    class="opacity-menu-block">
+  </div>
+  <div class="body"
+       [ngClass]="{
+        'body-visible': isOpened,
+        'body-hidden': !isOpened
+        }">
+<!--    <div *ngFor="let menuItems of menuItemsList">-->
+<!--      <app-items-list-->
+<!--        [isOpened]="isOpened"-->
+<!--        [currentWidth]="menuWidth"-->
+<!--        [menuItemsList]="menuItems"-->
+<!--        [showTooltip]="isShowTooltip">-->
+<!--      </app-items-list>-->
+<!--    </div>-->
+  </div>
+
+</div>
+
+<div
+  class="opacity-block"
+  [style.width]="isFixed? menuSizes.opened : menuSizes.closed">
+</div>

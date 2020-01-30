@@ -1,5 +1,8 @@
 import {UserAction, UserUnion} from '../actions/user.actions';
 import {User} from '../../models/user.models';
+import {LocalStorageService} from '../../core/services/local-storage.service';
+import {StorageKey} from '../../shared/storage-keys';
+const localStorageService = new LocalStorageService();
 
 export interface State  {
   user: User;
@@ -19,6 +22,7 @@ export function userReducer(state: State = initialState, action: UserUnion)  {
         user: action.payload
       };
     case UserAction.SetUserJwtToken:
+      localStorageService.set(StorageKey.JWT, action.payload);
       return {
         ...state,
         token: action.payload

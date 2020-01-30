@@ -1,0 +1,22 @@
+@import "src/app/styles/colors";
+
+.menu-wrapper {
+  position: fixed;
+  background: $dark-gray-color;
+  height: 100%;
+  z-index: 999;
+  top: 0;
+  left: 0;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  transition: all 0.3s;
+}
+
+.menu-is-open {
+  box-shadow: 0 0 30px rgba(0,0,0,0.5);
+  .header {
+    #pin-menu-btn {
+      opacity: 1;
+      transition: opacity 0.5s;
+    }
+  }
+}

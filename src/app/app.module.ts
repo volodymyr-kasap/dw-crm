@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {APP_INITIALIZER, NgModule} from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -12,6 +12,11 @@ import {metaReducers, reducers} from './store';
 import {httpInterceptorProviders} from './core/interceptors';
 import {QueryProgressBarComponent} from './components/query-progress-bar/query-progress-bar.component';
 import {SharedModule} from './shared/shared.module';
+import { SideMenuComponent } from './components/side-menu/side-menu.component';
+import {AppInitService} from './core/services/app-init.service';
+import {LocalStorageService} from './core/services/local-storage.service';
+import {AuthApi} from './core/api/auth.api';
+import {MainApi} from './core/api/main.api';
 
 
 @NgModule({
@@ -19,7 +24,8 @@ import {SharedModule} from './shared/shared.module';
     AppComponent,
     QueryProgressBarComponent,
     MainLayoutComponent,
-    GuestLayoutComponent
+    GuestLayoutComponent,
+    SideMenuComponent
   ],
   imports: [
     BrowserModule,
@@ -30,8 +36,9 @@ import {SharedModule} from './shared/shared.module';
     SharedModule
   ],
   providers: [
-    httpInterceptorProviders,
-    AuthService
+    AppInitService,
+    {provide: APP_INITIALIZER, useFactory: (config: AppInitService) => () => config.init(), deps: [AppInitService], multi: true},
+    httpInterceptorProviders
   ],
   bootstrap: [AppComponent]
 })
