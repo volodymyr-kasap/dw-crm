@@ -2,7 +2,7 @@ import {Action} from '@ngrx/store';
 import {Country} from '../../models/country.models';
 
 export enum CountryAction {
-  LoadCountries = '[Promo] LoadPromos',
+  LoadCountries = '[Country] LoadCountry',
 }
 
 export class LoadCountries implements Action {

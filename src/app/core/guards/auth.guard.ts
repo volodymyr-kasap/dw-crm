@@ -16,7 +16,7 @@ export class AuthGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot): boolean {
     let token = '';
-    debugger
+    // TODO: refresh token in local storage -> get jwt
     this.store.select(state => state.user.token).subscribe(tkn => {
       token = tkn;
     });

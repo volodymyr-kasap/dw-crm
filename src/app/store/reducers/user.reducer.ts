@@ -7,7 +7,7 @@ export interface State  {
 }
 
 export const initialState: State = {
-  user: new User(),
+  user: null,
   token: null,
 };
 
