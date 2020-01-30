@@ -1,4 +1,4 @@
-export interface AuthForm {
+export interface AuthFormInterface {
   email: string;
   password: string;
 }

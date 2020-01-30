@@ -1,24 +1,29 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {AuthForm} from '../../interfaces/auth-form';
-import {Observable} from 'rxjs';
-import {AccessToken} from '../../interfaces/access-token';
+import {AuthFormInterface} from '../../interfaces/auth-form.interface';
+import {forkJoin, Observable} from 'rxjs';
+import {AccessTokenInterface} from '../../interfaces/access-token.interface';
+import {MainApi} from './main.api';
+import {User} from '../../models/user.models';
 
 
 @Injectable({ providedIn: 'root' })
 export class AuthApi {
   constructor(
-    private http: HttpClient,
+    private http: HttpClient
   ) { }
 
 
-  login(loginForm: AuthForm): Observable<AccessToken> {
-    return this.http.post<AccessToken>('login', loginForm);
+  login(loginForm: AuthFormInterface): Observable<AccessTokenInterface> {
+    return this.http.post<AccessTokenInterface>('login', loginForm);
   }
 
-  register(registerForm: AuthForm): Observable<AccessToken> {
-    return this.http.post<AccessToken>('register', registerForm);
+  register(registerForm: AuthFormInterface): Observable<AccessTokenInterface> {
+    return this.http.post<AccessTokenInterface>('register', registerForm);
   }
 
+  getUser(userId: number) {
+    return this.http.get<User>(`users/${userId}`);
+  }
 
 }

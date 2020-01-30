@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AuthForm} from '../../../interfaces/auth-form';
+import {AuthFormInterface} from '../../../interfaces/auth-form.interface';
 import {AuthService} from '../../../services/auth.service';
 
 
@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
 
   public login() {
     if (this.loginForm.valid) {
-      const authForm: AuthForm = this.loginForm.value;
+      const authForm: AuthFormInterface = this.loginForm.value;
       this.authService.makeLogin(authForm);
     }
   }
