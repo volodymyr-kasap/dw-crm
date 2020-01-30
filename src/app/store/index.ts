@@ -3,18 +3,21 @@ import {ActionReducer, ActionReducerMap, MetaReducer} from '@ngrx/store';
 import * as fromUser from './reducers/user.reducer';
 import * as fromApplication from './reducers/application.reducer';
 import * as fromPromo from './reducers/promo.reducer';
+import * as fromCountry from './reducers/country.reducer';
 
 
 export interface State {
   user: fromUser.State;
   application: fromApplication.State;
-  promo: fromPromo.State
+  promo: fromPromo.State;
+  country: fromCountry.State;
 }
 
 export const reducers: ActionReducerMap<State> = {
   application: fromApplication.applicationReducer,
   user: fromUser.userReducer,
-  promo: fromPromo.promoReducer
+  promo: fromPromo.promoReducer,
+  country: fromCountry.countryReducer
 };
 
 export function logger(reducer: ActionReducer<State>): ActionReducer<State> {

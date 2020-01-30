@@ -16,7 +16,7 @@
 // }
 
 export class User {
-  Email: string;
-  Id: number;
+  constructor(public Id: number,
+              public Email: string) {}
 }
 

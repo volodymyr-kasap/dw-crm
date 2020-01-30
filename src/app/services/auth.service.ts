@@ -10,6 +10,7 @@ import {forkJoin} from 'rxjs';
 import {MainApi} from '../core/api/main.api';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {LoadPromos} from '../store/actions/promo.actions';
+import {LoadCountries} from '../store/actions/country.actions';
 const jwtHelper = new JwtHelperService();
 
 
@@ -52,13 +53,17 @@ export class AuthService {
       const info = jwtHelper.decodeToken(token);
       forkJoin(
         this.authApi.getUser(info.sub),
-        this.mainApi.getPromo()
-      ).subscribe(([user, promos]) => {
+        this.mainApi.getPromo(),
+        this.mainApi.getCountries(),
+      ).subscribe(([user, promos, countries]) => {
         if (user) {
           this.store.dispatch(new SetUserInfo(user));
         }
         if (promos) {
           this.store.dispatch(new LoadPromos(promos));
+        }
+        if (countries) {
+          this.store.dispatch(new LoadCountries(countries));
         }
       });
     });
