@@ -11,24 +11,11 @@
   text-transform: uppercase;
   font-weight: 600;
   color: $grey-color;
-  transition: opacity 0.5s;
+  transition: all 0.3s;
   user-select: none;
 }
 
 .menu-title_hidden {
   opacity: 0;
-}
-
-.hr-wrapper {
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.hr {
-  height: 0;
-  width: 17px;
-  border-bottom: 2px solid $grey-color;
 }
 

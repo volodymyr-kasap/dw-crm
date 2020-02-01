@@ -1,5 +1,4 @@
 <div
-  *ngIf="isOpened; else hr"
   class="menu-title"
   [ngClass]="{
         'menu-title_hidden': !isOpened
@@ -13,9 +12,3 @@
     [showTooltip]="showTooltip">
   </app-list>
 
-<ng-template #hr>
-  <div
-    class="hr-wrapper">
-    <div class="hr"></div>
-  </div>
-</ng-template>

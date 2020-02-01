@@ -36,6 +36,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: all 0.3s;
 
   &_hidden {
     margin-left: 20px;
@@ -43,4 +44,5 @@
 }
 .list-item__name_hidden {
   opacity: 0;
+  transition: opacity 0.3s;
 }
