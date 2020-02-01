@@ -1,59 +1,63 @@
-<div
+<aside
+  class="aside-wrapper"
   [ngClass]="{
-    'menu-wrapper': true,
-    'menu-is-open': isOpened,
-    'menu-is-close': !isOpened
+    'aside_is_open': isOpened,
+    'aside_is_close': !isOpened
   }"
   [ngStyle]="{
     'width': menuWidth
   }">
 
   <div
-    class="header">
-    <div class="top-side">
+    class="aside-header">
+    <div class="aside-header-top">
       <button
-        id="pin-menu-btn"
+        class="aside-header-top__button"
         mat-icon-button
         (click)="changeMenuFixation()">
         <i class="fas fa-bars fa-lg"></i>
       </button>
     </div>
     <div
-      [style.width]="menuSizes.opened"
-      class="user-data">
+      class="aside-header-user"
+      [style.width]="menuSizes.opened">
       <div
+        class="aside-header-user__login"
         [ngClass]="{
-                'user-data-hidden': !isOpened
-            }"
-        class="user-login">
-        {{ (userInfo | async).Email }}
+          'aside-header-user_hidden': !isOpened
+        }">
+        {{ (userInfo | async).email }}
       </div>
       <div
+        class="aside-header-user__email"
         [ngClass]="{
-                'user-data-hidden': !isOpened
-            }"
-        class="user-mail">
-        {{ (userInfo | async).Email }}
+          'aside-header-user_hidden': !isOpened
+        }">
+        {{ (userInfo | async).email }}
       </div>
 
-<!--      <app-profile-avatar-->
-<!--        class="user-photo"-->
-<!--        [userName]="(userInfo | async).Name"-->
-<!--        [ngClass]="{-->
-<!--                    'user-photo-visible': isOpened,-->
-<!--                    'user-photo-hidden': !isOpened-->
-<!--                }">-->
-<!--      </app-profile-avatar>-->
+      <ngx-avatar
+        *ngIf="(userInfo | async).email as emailValue"
+        class="aside-header-user__photo"
+        [ngClass]="{
+          'aside-header-user__photo_visible': isOpened,
+          'aside-header-user__photo_hidden': !isOpened
+        }"
+        [name]="emailValue"
+        [size]="isOpened ? 75 : 50">
+      </ngx-avatar>
     </div>
   </div>
+
   <div
     class="opacity-menu-block">
   </div>
-  <div class="body"
-       [ngClass]="{
-        'body-visible': isOpened,
-        'body-hidden': !isOpened
-        }">
+
+  <div class="aside-body"
+    [ngClass]="{
+      'aside-body_visible': isOpened,
+      'aside-body_hidden': !isOpened
+    }">
 <!--    <div *ngFor="let menuItems of menuItemsList">-->
 <!--      <app-items-list-->
 <!--        [isOpened]="isOpened"-->
@@ -64,7 +68,7 @@
 <!--    </div>-->
   </div>
 
-</div>
+</aside>
 
 <div
   class="opacity-block"

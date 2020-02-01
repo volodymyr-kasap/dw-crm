@@ -5,7 +5,9 @@ import {Observable} from 'rxjs';
 import {AccessTokenInterface} from '../../interfaces/access-token.interface';
 import {User} from '../../models/user.models';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({
+  providedIn: 'root'
+})
 export class AuthApi {
   constructor(
     private http: HttpClient

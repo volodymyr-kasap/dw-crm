@@ -4,7 +4,9 @@ import {PromoItem} from '../../models/promo.model';
 import {Observable} from 'rxjs';
 import {Country} from '../../models/country.models';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({
+  providedIn: 'root'
+})
 export class MainApi {
   constructor(
     private http: HttpClient

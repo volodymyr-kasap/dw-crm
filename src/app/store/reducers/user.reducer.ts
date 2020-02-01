@@ -10,8 +10,8 @@ export interface State  {
 }
 
 export const initialState: State = {
-  user: null,
-  token: null,
+  user: new User(null, ''),
+  token: null
 };
 
 export function userReducer(state: State = initialState, action: UserUnion)  {

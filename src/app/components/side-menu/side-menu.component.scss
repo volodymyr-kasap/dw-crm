@@ -1,6 +1,6 @@
 @import "src/app/styles/colors";
 
-.menu-wrapper {
+.aside-wrapper {
   position: fixed;
   background: $dark-gray-color;
   height: 100%;
@@ -11,12 +11,91 @@
   transition: all 0.3s;
 }
 
-.menu-is-open {
+.aside_is_open {
   box-shadow: 0 0 30px rgba(0,0,0,0.5);
-  .header {
-    #pin-menu-btn {
+  .aside-header {
+    &-top__button {
       opacity: 1;
       transition: opacity 0.5s;
     }
   }
 }
+
+.aside-header {
+  background-color: $light-blue-color;
+  height: 180px;
+  overflow-x: hidden;
+  &-top {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    padding: 10px;
+    &__button {
+      color: #ffffff;
+    }
+  }
+}
+
+.aside-body {
+  background-color: $dark-gray-color;
+  overflow-x:hidden;
+  transition: padding-top 0.2s;
+}
+
+.opacity-block {
+  width: 240px;
+}
+
+.opacity-menu-block {
+  height: 30px;
+}
+
+.aside-header-user {
+  text-align: center;
+  width: 100%;
+  padding-top: 19px;
+  transition: all 0.3s;
+
+  &__login {
+    color: $white-color;
+    font-size: 17px;
+    display: block;
+    min-height: 23px;
+  }
+
+  &__email {
+    padding-top: 5px;
+    color: #979ba3;
+    font-size: 13px;
+    display: block;
+    word-break: break-all;
+    min-height: 23px;
+  }
+
+  &__photo {
+    position: absolute;
+    left:0;
+    right:0;
+    margin-left:auto;
+    margin-right:auto;
+    transition: all 0.3s;
+
+    &_visible {
+      width: 75px;
+      height: 75px;
+      margin-top: 15px;
+    }
+
+    &_hidden {
+      width: 50px;
+      height: 50px;
+      margin-top: -20px;
+    }
+  }
+
+  &_hidden {
+    opacity: 0;
+    transition: all 0.3s;
+  }
+}
+

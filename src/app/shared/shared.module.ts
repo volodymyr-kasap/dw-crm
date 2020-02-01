@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 import { MatCheckboxModule } from '@angular/material';
 import { MatButtonModule } from '@angular/material';
@@ -32,6 +31,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import {ReactiveFormsModule} from '@angular/forms';
+
+import { AvatarModule } from 'ngx-avatar';
 
 const matModules = [
   MatCheckboxModule,
@@ -72,11 +73,13 @@ const matModules = [
   declarations: [],
   imports: [
     matModules,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AvatarModule
   ],
   exports: [
     matModules,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AvatarModule
   ]
 
 })
