@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../../../services/auth.service';
-import {AuthFormInterface} from '../../../interfaces/auth-form.interface';
+import {IAuthForm} from '../../../interfaces/auth-form.interface';
 
 @Component({
   selector: 'app-register',
@@ -26,7 +26,7 @@ export class RegisterComponent implements OnInit {
 
   public register() {
     if (this.registerForm.valid) {
-      const authForm: AuthFormInterface = this.registerForm.value;
+      const authForm: IAuthForm = this.registerForm.value;
       this.authService.makeRegister(authForm);
     }
   }

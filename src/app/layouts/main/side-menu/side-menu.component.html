@@ -19,8 +19,7 @@
       </button>
     </div>
     <div
-      class="aside-header-user"
-      [style.width]="menuSizes.opened">
+      class="aside-header-user">
       <div
         class="aside-header-user__login"
         [ngClass]="{
@@ -50,6 +49,7 @@
   </div>
 
   <div
+    *ngIf="isOpened"
     class="opacity-menu-block">
   </div>
 
@@ -58,16 +58,14 @@
       'aside-body_visible': isOpened,
       'aside-body_hidden': !isOpened
     }">
-<!--    <div *ngFor="let menuItems of menuItemsList">-->
-<!--      <app-items-list-->
-<!--        [isOpened]="isOpened"-->
-<!--        [currentWidth]="menuWidth"-->
-<!--        [menuItemsList]="menuItems"-->
-<!--        [showTooltip]="isShowTooltip">-->
-<!--      </app-items-list>-->
-<!--    </div>-->
+    <div *ngFor="let menuGroup of menuGroupList">
+      <app-side-menu-list
+        [isOpened]="isOpened"
+        [menuItemsList]="menuGroup"
+        [showTooltip]="isShowTooltip">
+      </app-side-menu-list>
+    </div>
   </div>
-
 </aside>
 
 <div

@@ -1,4 +1,4 @@
-@import "src/app/styles/colors";
+@import "../../../styles/colors";
 
 .aside-wrapper {
   position: fixed;
@@ -26,10 +26,8 @@
   height: 180px;
   overflow-x: hidden;
   &-top {
-    display: flex;
-    flex-direction: column;
-    align-content: center;
     padding: 10px;
+    margin-bottom: 20px;
     &__button {
       color: #ffffff;
     }
@@ -39,7 +37,6 @@
 .aside-body {
   background-color: $dark-gray-color;
   overflow-x:hidden;
-  transition: padding-top 0.2s;
 }
 
 .opacity-block {
@@ -47,13 +44,12 @@
 }
 
 .opacity-menu-block {
-  height: 30px;
+  height: 35px;
 }
 
 .aside-header-user {
   text-align: center;
   width: 100%;
-  padding-top: 19px;
   transition: all 0.3s;
 
   &__login {
@@ -61,10 +57,10 @@
     font-size: 17px;
     display: block;
     min-height: 23px;
+    margin-bottom: 5px;
   }
 
   &__email {
-    padding-top: 5px;
     color: #979ba3;
     font-size: 13px;
     display: block;

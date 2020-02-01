@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {AuthFormInterface} from '../../interfaces/auth-form.interface';
 import {Observable} from 'rxjs';
-import {AccessTokenInterface} from '../../interfaces/access-token.interface';
 import {User} from '../../models/user.models';
+import {IAccessToken} from '../../interfaces/access-token.interface';
+import {IAuthForm} from '../../interfaces/auth-form.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -14,12 +14,12 @@ export class AuthApi {
   ) { }
 
 
-  login(loginForm: AuthFormInterface): Observable<AccessTokenInterface> {
-    return this.http.post<AccessTokenInterface>('login', loginForm);
+  login(loginForm: IAuthForm): Observable<IAccessToken> {
+    return this.http.post<IAccessToken>('login', loginForm);
   }
 
-  register(registerForm: AuthFormInterface): Observable<AccessTokenInterface> {
-    return this.http.post<AccessTokenInterface>('register', registerForm);
+  register(registerForm: IAuthForm): Observable<IAccessToken> {
+    return this.http.post<IAccessToken>('register', registerForm);
   }
 
   getUser(userId: number) {

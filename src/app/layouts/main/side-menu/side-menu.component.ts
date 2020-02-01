@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import {LocalStorageService} from '../../core/services/local-storage.service';
-import {StorageKey} from '../../shared/storage-keys';
+import {LocalStorageService} from '../../../core/services/local-storage.service';
+import {StorageKey} from '../../../shared/storage-keys';
 import {select, Store} from '@ngrx/store';
-import * as indexReducer from '../../store';
+import * as indexReducer from '../../../store';
 import {Observable} from 'rxjs';
-import {User} from '../../models/user.models';
+import {User} from '../../../models/user.models';
+import {IMenuGroup} from '../../../interfaces/menu-group.interface';
+import {SideMenuItems} from '../../../shared/side-menu-items';
 
 @Component({
   selector: 'app-side-menu',
@@ -19,6 +21,8 @@ export class SideMenuComponent implements OnInit {
   public menuWidth: string;
 
   public userInfo: Observable<User>;
+
+  public menuGroupList: IMenuGroup[] = SideMenuItems;
 
   public menuSizes = {
     closed: '64px',

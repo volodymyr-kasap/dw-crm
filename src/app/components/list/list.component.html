@@ -1,0 +1,35 @@
+<div
+  class="list-wrapper">
+  <div
+    *ngFor="let item of listItems" >
+    <a>
+      <button
+        mat-button
+        class="list-wrapper__item"
+        [routerLink]="item.link"
+        [routerLinkActive]="'active-link' + activeLinkClass"
+        [matTooltip]="item.name"
+        [matTooltipPosition]="'after'"
+        [matTooltipDisabled]="!showTooltip">
+        <span
+          [class]="'list-item ' + itemClass">
+          <span
+            *ngIf="item.iconClass"
+            [class]="'list-item__icon ' + iconClass"
+            [ngClass]="{
+              'list-item__icon_hidden': !isOpened
+              }">
+            <i [class]="item.iconClass"></i>
+          </span>
+          <span
+            [class]="'list-item__name ' + textClass"
+            [ngClass]="{
+              'list-item__name_hidden': !isOpened
+              }">
+            {{ item.name }}
+          </span>
+        </span>
+      </button>
+    </a>
+  </div>
+</div>

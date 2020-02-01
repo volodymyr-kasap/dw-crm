@@ -1,16 +1,16 @@
 import {Store} from '@ngrx/store';
 import {Router} from '@angular/router';
 import * as indexReducer from '../store/index';
-import {AuthFormInterface} from '../interfaces/auth-form.interface';
 import {SetUserInfo, SetUserJwtToken} from '../store/actions/user.actions';
 import {Injectable} from '@angular/core';
 import {AuthApi} from '../core/api/auth.api';
-import {AccessTokenInterface} from '../interfaces/access-token.interface';
 import {forkJoin} from 'rxjs';
 import {MainApi} from '../core/api/main.api';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {LoadPromos} from '../store/actions/promo.actions';
 import {LoadCountries} from '../store/actions/country.actions';
+import {IAuthForm} from '../interfaces/auth-form.interface';
+import {IAccessToken} from '../interfaces/access-token.interface';
 const jwtHelper = new JwtHelperService();
 
 
@@ -26,9 +26,9 @@ export class AuthService {
   ) { }
 
 
-  public makeLogin(loginForm: AuthFormInterface) {
+  public makeLogin(loginForm: IAuthForm) {
     this.authApi.login(loginForm)
-      .subscribe((res: AccessTokenInterface) => {
+      .subscribe((res: IAccessToken) => {
         if (res) {
           this.store.dispatch(new SetUserJwtToken(res.accessToken));
           this.getUserInfo();
@@ -37,9 +37,9 @@ export class AuthService {
       });
   }
 
-  public makeRegister(registerForm: AuthFormInterface) {
+  public makeRegister(registerForm: IAuthForm) {
     this.authApi.register(registerForm)
-      .subscribe((res: AccessTokenInterface) => {
+      .subscribe((res: IAccessToken) => {
         if (res) {
           this.store.dispatch(new SetUserJwtToken(res.accessToken));
           this.getUserInfo();

@@ -33,6 +33,10 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import {ReactiveFormsModule} from '@angular/forms';
 
 import { AvatarModule } from 'ngx-avatar';
+import {QueryProgressBarComponent} from '../components/query-progress-bar/query-progress-bar.component';
+import {CommonModule} from '@angular/common';
+import {ListComponent} from '../components/list/list.component';
+import {RouterModule} from '@angular/router';
 
 const matModules = [
   MatCheckboxModule,
@@ -70,16 +74,26 @@ const matModules = [
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    QueryProgressBarComponent,
+    ListComponent
+  ],
   imports: [
+    CommonModule,
     matModules,
     ReactiveFormsModule,
+    RouterModule,
     AvatarModule
   ],
   exports: [
     matModules,
+
     ReactiveFormsModule,
-    AvatarModule
+
+    AvatarModule,
+
+    QueryProgressBarComponent,
+    ListComponent
   ]
 
 })
