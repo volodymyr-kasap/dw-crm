@@ -1,0 +1,10 @@
+@import "src/app/styles/colors";
+
+.header {
+  background: $light-blue-color;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  position: absolute;
+  height: 48px;
+  width: 100%;
+  z-index: 999;
+}

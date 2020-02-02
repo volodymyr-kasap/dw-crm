@@ -1,13 +1,13 @@
 @import "src/app/styles/colors";
 
-.wrapper {
+.body {
   width: 100%;
   min-height: 100vh;
   display: flex;
   background-color: $main-bg-color;
 }
 
-.body {
+.main {
+  padding-top: 48px;
   width: 100%;
-  display: flex;
 }
