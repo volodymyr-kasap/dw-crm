@@ -7,6 +7,7 @@ import {SharedModule} from '../../shared/shared.module';
 import {RouterModule} from '@angular/router';
 import { HeaderComponent } from './header/header.component';
 import { HeaderUserMenuComponent } from './header-user-menu/header-user-menu.component';
+import { HeaderFavoriteLinksComponent } from './header-favorite-links/header-favorite-links.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { HeaderUserMenuComponent } from './header-user-menu/header-user-menu.com
     SideMenuComponent,
     SideMenuListComponent,
     HeaderComponent,
-    HeaderUserMenuComponent
+    HeaderUserMenuComponent,
+    HeaderFavoriteLinksComponent
   ],
   imports: [
     CommonModule,
