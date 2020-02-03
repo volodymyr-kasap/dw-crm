@@ -14,12 +14,7 @@
 <mat-menu #profileSetting class="profile-setting">
   <button
     mat-menu-item
-    class="profile-setting__button">
-    <i class="fas fa-cogs mr-2"></i>
-    <span class="profile-setting__name">Настройки</span>
-  </button>
-  <button
-    mat-menu-item
+    (click)="logOut()"
     class="profile-setting__button">
     <i class="fas fa-sign-out-alt mr-2"></i>
     <span class="profile-setting__name">Выход</span>

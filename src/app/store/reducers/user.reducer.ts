@@ -2,6 +2,7 @@ import {UserAction, UserUnion} from '../actions/user.actions';
 import {User} from '../../models/user.models';
 import {LocalStorageService} from '../../core/services/local-storage.service';
 import {StorageKey} from '../../shared/storage-keys';
+
 const localStorageService = new LocalStorageService();
 
 export interface State  {
@@ -26,6 +27,12 @@ export function userReducer(state: State = initialState, action: UserUnion)  {
       return {
         ...state,
         token: action.payload
+      };
+    case UserAction.DeleteUserJwtToken:
+      localStorageService.remove(StorageKey.JWT);
+      // TODO
+      return {
+        ...state
       };
     default:
       return state;

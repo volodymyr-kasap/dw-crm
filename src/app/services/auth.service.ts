@@ -1,7 +1,7 @@
 import {Store} from '@ngrx/store';
 import {Router} from '@angular/router';
 import * as indexReducer from '../store/index';
-import {SetUserInfo, SetUserJwtToken} from '../store/actions/user.actions';
+import {DeleteUserJwtToken, SetUserInfo, SetUserJwtToken} from '../store/actions/user.actions';
 import {Injectable} from '@angular/core';
 import {AuthApi} from '../core/api/auth.api';
 import {forkJoin} from 'rxjs';
@@ -46,6 +46,11 @@ export class AuthService {
           this.router.navigate(['/']);
         }
       });
+  }
+
+  public makeLogOut() {
+    this.store.dispatch(new DeleteUserJwtToken());
+    this.router.navigate(['Guest'])
   }
 
   public getUserInfo() {

@@ -3,7 +3,8 @@ import {User} from '../../models/user.models';
 
 export enum UserAction {
   SetUserInfo = '[User] SetUserInfo',
-  SetUserJwtToken = '[User] SetUserJwtToken'
+  SetUserJwtToken = '[User] SetUserJwtToken',
+  DeleteUserJwtToken = '[User] DeleteUserJwtToken'
 }
 
 export class SetUserInfo implements Action {
@@ -18,4 +19,8 @@ export class SetUserJwtToken implements Action {
   constructor(public payload: string) { }
 }
 
-export type UserUnion =  SetUserInfo | SetUserJwtToken;
+export class DeleteUserJwtToken implements Action {
+  readonly type = UserAction.DeleteUserJwtToken;
+}
+
+export type UserUnion =  SetUserInfo | SetUserJwtToken | DeleteUserJwtToken;
