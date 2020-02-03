@@ -1,0 +1,27 @@
+<button
+  *ngIf="(userInfo$ | async) as userInfo"
+  class="user-button"
+  mat-button
+  [title]="userInfo.email"
+  [matMenuTriggerFor]="profileSetting">
+  <span class="user-button__wrapper">
+    <i class="far fa-user icon mr-2 font-size-16px"></i>
+    <span class="mr-2">{{ userInfo.email }}</span>
+    <i class="fas fa-chevron-down font-size-11px"></i>
+  </span>
+</button>
+
+<mat-menu #profileSetting class="profile-setting">
+  <button
+    mat-menu-item
+    class="profile-setting__button">
+    <i class="fas fa-cogs mr-2"></i>
+    <span class="profile-setting__name">Настройки</span>
+  </button>
+  <button
+    mat-menu-item
+    class="profile-setting__button">
+    <i class="fas fa-sign-out-alt mr-2"></i>
+    <span class="profile-setting__name">Выход</span>
+  </button>
+</mat-menu>

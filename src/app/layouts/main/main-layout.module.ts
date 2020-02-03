@@ -6,13 +6,15 @@ import {SideMenuListComponent} from './side-menu-list/side-menu-list.component';
 import {SharedModule} from '../../shared/shared.module';
 import {RouterModule} from '@angular/router';
 import { HeaderComponent } from './header/header.component';
+import { HeaderUserMenuComponent } from './header-user-menu/header-user-menu.component';
 
 @NgModule({
   declarations: [
     MainLayoutComponent,
     SideMenuComponent,
     SideMenuListComponent,
-    HeaderComponent
+    HeaderComponent,
+    HeaderUserMenuComponent
   ],
   imports: [
     CommonModule,

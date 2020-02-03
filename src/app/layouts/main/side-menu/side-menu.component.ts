@@ -20,7 +20,7 @@ export class SideMenuComponent implements OnInit {
   public isFixed: boolean = false;
   public menuWidth: string;
 
-  public userInfo: Observable<User>;
+  public userInfo$: Observable<User>;
 
   public menuGroupList: IMenuGroup[] = SideMenuItems;
 
@@ -36,7 +36,7 @@ export class SideMenuComponent implements OnInit {
 
   ngOnInit() {
     this.initFixation();
-    this.userInfo = this.store.pipe(select(state => state.user.user));
+    this.userInfo$ = this.store.pipe(select(state => state.user.user));
   }
 
   public open() {

@@ -25,24 +25,24 @@
         [ngClass]="{
           'aside-header-user_hidden': !isOpened
         }">
-        {{ (userInfo | async).email }}
+        {{ (userInfo$ | async).email }}
       </div>
       <div
         class="aside-header-user__email"
         [ngClass]="{
           'aside-header-user_hidden': !isOpened
         }">
-        {{ (userInfo | async).email }}
+        {{ (userInfo$ | async).email }}
       </div>
 
       <ngx-avatar
-        *ngIf="(userInfo | async).email as emailValue"
+        *ngIf="(userInfo$ | async).email as email"
         class="aside-header-user__photo"
         [ngClass]="{
           'aside-header-user__photo_visible': isOpened,
           'aside-header-user__photo_hidden': !isOpened
         }"
-        [name]="emailValue"
+        [name]="email"
         [size]="isOpened ? 75 : 50">
       </ngx-avatar>
     </div>
