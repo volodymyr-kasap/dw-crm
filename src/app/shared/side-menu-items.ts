@@ -16,7 +16,7 @@ export const SideMenuItems: IMenuGroup[] = [
       },
       {
         name: 'Потенц. клиенты',
-        link: '/Clients/Potential',
+        link: '/PotentialClients/List',
         iconClass: 'fas fa-user-clock',
       },
       {

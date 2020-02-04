@@ -12,6 +12,10 @@ const routes: Routes = [
         {
           path: '',
           loadChildren: () => import('./views/index/index.module').then(module => module.IndexModule)
+        },
+        {
+          path: 'PotentialClients',
+          loadChildren: () => import('./views/potential-clients/potential-clients.module').then(module => module.PotentialClientsModule)
         }
       ],
       canActivate: [

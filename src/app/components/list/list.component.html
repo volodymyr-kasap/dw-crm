@@ -8,6 +8,7 @@
         class="list-wrapper__item"
         [routerLink]="item.link"
         [routerLinkActive]="'active-link' + activeLinkClass"
+        [routerLinkActiveOptions]="{exact: true}"
         [matTooltip]="item.name"
         [matTooltipPosition]="'after'"
         [matTooltipDisabled]="!showTooltip">

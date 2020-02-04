@@ -10,7 +10,6 @@ import {httpInterceptorProviders} from './core/interceptors';
 import {MainLayoutModule} from './layouts/main/main-layout.module';
 import {GuestLayoutModule} from './layouts/guest/guest-layout.module';
 import {CommonModule} from '@angular/common';
-import { ListComponent } from './components/list/list.component';
 
 
 @NgModule({
