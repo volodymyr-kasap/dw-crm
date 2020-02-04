@@ -1,3 +1,6 @@
+import {Contact} from './contact.model';
+import {PotClientEvent} from './potential-client-event.model';
+
 export class PotentialClient {
   constructor(
     public id: number,
@@ -7,8 +10,12 @@ export class PotentialClient {
     public countryCode: string,
     public companyName: string,
     public lastChangeDate: Date,
-    public creationDate: Date,
-    public isDemo: boolean) {
+    public additionDate: Date,
+    public isDemo: boolean,
+    public managers: number[],
+    public contact: Contact,
+    public lastEvent: PotClientEvent
+    ) {
   }
 }
 

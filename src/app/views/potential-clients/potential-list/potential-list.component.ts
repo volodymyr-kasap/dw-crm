@@ -82,66 +82,62 @@ export class PotentialListComponent implements OnInit, OnDestroy {
       });
 
     let filterValue = this.filterForm.value;
-    filterValue.Filter = filterValue.Filter.trim();
-
     if (filterValue.Filter) {
       this.potentialClients = this.potentialClients.filter(potClient => {
-        // let textBlock = document.createElement('div');
-        // if (x.LastEvent && x.LastEvent.Comments) {
-        //   textBlock.innerHTML = x.LastEvent.Comments;
-        // }
-        const searchString = filterValue.Filter.toLowerCase();
+        const searchString = filterValue.Filter.trim().toLocaleLowerCase();
+        const textBlock = document.createElement('div');
+        if (potClient.lastEvent && potClient.lastEvent.comment) {
+          textBlock.innerHTML = potClient.lastEvent.comment;
+        }
 
         return (potClient.id ? potClient.id.toString().includes(searchString) : null) ||
           (potClient.companyName ? potClient.companyName.toLowerCase().includes(searchString) : null) ||
-          (potClient.name ? potClient.name.toLocaleLowerCase().includes(searchString) : null);
-          // (x.Contacts.Phone ? filterValue.Filter.toLowerCase().replace(/\D+/g, "") !== '' ?
-          //   x.Contacts.Phone.toLowerCase().replace(/\D+/g, "")
-          //     .includes(filterValue.Filter.toLowerCase().replace(/\D+/g, ""))
-          //   : null
-          //   : null) ||
-          // (x.Contacts.Name ? x.Contacts.Name.toLowerCase().includes(filterValue.Filter.toLowerCase()) : null) ||
-          // (x.Contacts.Email ? x.Contacts.Email.toLowerCase().includes(filterValue.Filter.toLowerCase()) : null) ||
-          //((x.LastEvent && x.LastEvent.Comments) ? textBlock.innerText.toLowerCase().includes(filterValue.Filter.toLowerCase()) : null);
+          (potClient.name ? potClient.name.toLocaleLowerCase().includes(searchString) : null) ||
+          (potClient.contact.phone ? searchString.replace(/\D+/g, "") !== '' ?
+            potClient.contact.phone.toLocaleLowerCase().replace(/\D+/g, "").includes(searchString.replace(/\D+/g, "")) : null
+          : null) ||
+          (potClient.contact.name ? potClient.contact.name.toLocaleLowerCase().includes(searchString) : null) ||
+          (potClient.contact.email ? potClient.contact.email.toLocaleLowerCase().includes(searchString) : null) ||
+          ((potClient.lastEvent && potClient.lastEvent.comment) ? textBlock.innerText.toLocaleLowerCase().includes(searchString) : null)
         }
       );
     }
 
-    // if (filterValue.EventDate) {
-    //   const begin = filterValue.EventDate.begin.setHours(0, 0, 0, 0);
-    //   const end = filterValue.EventDate.end.setHours(0, 0, 0, 0);
-    //   this.potentialClients = this.potentialClients.filter(x => {
-    //       if (!x.LastEvent) {
-    //         return false;
-    //       }
-    //       const itemDate = new Date(x.LastEvent.Date).setHours(0, 0, 0, 0);
-    //       return (begin <= itemDate) && (end >= itemDate);
-    //     }
-    //   );
-    // }
-
-    if (filterValue.AddingDate) {
-      const begin = filterValue.AddingDate.begin.setHours(0, 0, 0, 0);
-      const end = filterValue.AddingDate.end.setHours(0, 0, 0, 0);
-      this.potentialClients = this.potentialClients.filter(x => {
-          const itemDate = new Date(x.creationDate).setHours(0, 0, 0, 0);
+    if (filterValue.EventDate) {
+      const begin = filterValue.EventDate.begin.setHours(0, 0, 0, 0);
+      const end = filterValue.EventDate.end.setHours(0, 0, 0, 0);
+      this.potentialClients = this.potentialClients.filter(potClient => {
+          if (!potClient.lastEvent) {
+            return false;
+          }
+          const itemDate = new Date(potClient.lastEvent.date).setHours(0, 0, 0, 0);
           return (begin <= itemDate) && (end >= itemDate);
         }
       );
     }
 
-    // if (filterValue.CallDate) {
-    //   const begin = filterValue.CallDate.begin.setHours(0, 0, 0, 0);
-    //   const end = filterValue.CallDate.end.setHours(0, 0, 0, 0);
-    //   this.potentialClients = this.potentialClients.filter(x => {
-    //       if (!x.LastEvent) {
-    //         return false;
-    //       }
-    //       const itemDate = new Date(x.LastEvent.NotificationDate).setHours(0, 0, 0, 0);
-    //       return (begin <= itemDate) && (end >= itemDate);
-    //     }
-    //   );
-    // }
+    if (filterValue.AddingDate) {
+      const begin = filterValue.AddingDate.begin.setHours(0, 0, 0, 0);
+      const end = filterValue.AddingDate.end.setHours(0, 0, 0, 0);
+      this.potentialClients = this.potentialClients.filter(x => {
+          const itemDate = new Date(x.additionDate).setHours(0, 0, 0, 0);
+          return (begin <= itemDate) && (end >= itemDate);
+        }
+      );
+    }
+
+    if (filterValue.CallDate) {
+      const begin = filterValue.CallDate.begin.setHours(0, 0, 0, 0);
+      const end = filterValue.CallDate.end.setHours(0, 0, 0, 0);
+      this.potentialClients = this.potentialClients.filter(potClient => {
+          if (!potClient.lastEvent) {
+            return false;
+          }
+          const itemDate = potClient.lastEvent.notificationDate.setHours(0, 0, 0, 0);
+          return (begin <= itemDate) && (end >= itemDate);
+        }
+      );
+    }
 
     this.pageEvent.length =this.potentialClients.length;
   }
@@ -168,13 +164,13 @@ export class PotentialListComponent implements OnInit, OnDestroy {
   }
 
   urgentPotentialClients(): PotentialClient[] {
-    return this.potentialClients.slice(0, 5);
+    // return this.potentialClients.slice(0, 5);
     // TODO
-    // return this.potentialClients.filter(x => {
-    //   if (x.LastEvent && x.LastEvent.NotificationDate !== null) {
-    //     return new Date(x.LastEvent.NotificationDate).setHours(0, 0, 0, 0) === new Date().setHours(0, 0, 0, 0);
-    //   }
-    // });
+    return this.potentialClients.filter(x => {
+      if (x.lastEvent && x.lastEvent.notificationDate !== null) {
+        return new Date(x.lastEvent.notificationDate).setHours(0, 0, 0, 0) === new Date().setHours(0, 0, 0, 0);
+      }
+    });
   }
 
 

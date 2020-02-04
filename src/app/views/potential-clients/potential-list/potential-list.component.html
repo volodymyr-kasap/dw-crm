@@ -135,5 +135,121 @@
 <ng-template
   #potentialUser
   let-potentialClient="potentialClient">
-  {{potentialClient | json}}
+  <div class="row col-12 px-0 mx-0 mb-2 align-items-center align-self-start">
+    <p class="mr-2 mb-0 border-right color-707070 font-size-16px font-weight-Regular potential-client__id"
+       appHighlight
+       [searchedWords]="filterForm.controls.Filter.value"
+       [text]="potentialClient.id.toString()"
+       classToApply="selected-color"></p>
+
+    <p class="mr-2 mb-0 border-right font-weight-Semibold color-black potential-client__type font-size-16px">
+      {{potentialClient.type}}
+    </p>
+
+    <div class="pr-2 mr-2 border-right">
+      <p class="flag-icon mb-0 flag-icon-{{ potentialClient.countryCode | lowercase }}"
+         [matTooltip]="potentialClient.countryName"
+         [matTooltipPosition]="'above'">
+      </p>
+    </div>
+
+    <a class="potential-client__name col px-0  font-size-16px color-0077FF font-weight-Bold"
+       [routerLink]="['/Clients/Potential/Details/Main']" [queryParams]="{clientId: potentialClient.id}" fragment="history">
+      <p class="mb-0"
+         *ngIf="potentialClient.countryName"
+         appHighlight
+         [searchedWords]="filterForm.controls.Filter.value"
+         [text]="potentialClient.companyName"
+         classToApply="selected-color">
+      </p>
+    </a>
+
+<!--    <div class="col-7 px-0 d-flex justify-content-end align-items-center ml-auto">-->
+<!--      <p class="wayToAdd pl-2 mb-0 border-left border-right font-size-14px font-weight-Semibold"-->
+<!--         *ngIf="potentialClient.wayToAdd !== null">-->
+<!--        <i [ngClass]="potentialClient.wyToAdd.icon"></i>-->
+<!--        {{potentialClient.WayToAdd.title}}-->
+<!--      </p>-->
+<!--      <p class="col-3 px-2 mr-2 mb-0 text-center color-707070 font-size-14px font-weight-Regular"-->
+<!--         [ngClass]="{'border-right': potentialClient.Managers.length > 0}">{{potentialClient.AdditionDate | date}}</p>-->
+<!--      <ul class="d-flex managers-list list-unstyled">-->
+<!--        <li class="mr-1 "-->
+<!--            *ngFor="let manager of potentialClient.Managers" [matTooltip]="manager.Name">-->
+<!--          <ngx-avatar-->
+<!--            [name]="manager.Name"-->
+<!--            size="30"></ngx-avatar>-->
+<!--        </li>-->
+<!--      </ul>-->
+<!--    </div>-->
+  </div>
+<!--  <div class="row mx-0 justify-content-between align-items-center col-12 px-0 align-self-end">-->
+<!--    <div class="col">-->
+<!--      <div *ngIf="potentialClient.DraftEvent">-->
+<!--        <ng-container [ngTemplateOutlet]="lastEvent"-->
+<!--                      [ngTemplateOutletContext]="{lastEvent: potentialClient.DraftEvent}"></ng-container>-->
+<!--      </div>-->
+<!--      <div *ngIf="potentialClient.LastEvent && !potentialClient.DraftEvent">-->
+<!--        <ng-container [ngTemplateOutlet]="lastEvent"-->
+<!--                      [ngTemplateOutletContext]="{lastEvent: potentialClient.LastEvent}"></ng-container>-->
+<!--      </div>-->
+
+<!--      <div class="col d-flex px-0 align-items-center client-contact"-->
+<!--           *ngIf="potentialClient.Contacts">-->
+<!--        <div class="font-weight-Bold border-right pl-0 pr-2 font-size-14px mr-3 client-contact__name">-->
+<!--                      <span class="text-overflow-ellipsis d-block"-->
+<!--                            *ngIf="potentialClient.Contacts.Name"-->
+<!--                            [matTooltip]="potentialClient.Contacts.Name"-->
+<!--                            appHighlight-->
+<!--                            [searchedWords]="filterForm.controls.Filter.value"-->
+<!--                            [text]="potentialClient.Contacts.Name"-->
+<!--                            classToApply="selected-color">-->
+<!--                      </span>-->
+<!--        </div>-->
+<!--        <div class="font-weight-Regular border-right pl-0 pr-2 font-size-14px mr-3 client-contact__position px-0">-->
+<!--                      <span class="text-overflow-ellipsis d-block"-->
+<!--                            *ngIf="potentialClient.Contacts.Position"-->
+<!--                            [matTooltip]="potentialClient.Contacts.Position"-->
+<!--                            appHighlight-->
+<!--                            [searchedWords]="filterForm.controls.Filter.value"-->
+<!--                            [text]="potentialClient.Contacts.Position"-->
+<!--                            classToApply="selected-color">-->
+<!--                      </span>-->
+<!--        </div>-->
+<!--        <button mat-raised-button-->
+<!--                color="info"-->
+<!--                class="font-size-14px mr-3 "-->
+<!--                *ngIf="potentialClient.Contacts.Phone"-->
+<!--                [matTooltip]="potentialClient.Contacts.Phone"-->
+<!--                ngxClipboard-->
+<!--                [cbContent]="potentialClient.Contacts.Phone"-->
+<!--        >-->
+<!--          <i class="fas fa-phone mr-1" ></i>-->
+<!--          <span appHighlight-->
+<!--                [searchedWords]="filterForm.controls.Filter.value"-->
+<!--                [text]="potentialClient.Contacts.Phone | slice: 0: 15"-->
+<!--                classToApply="selected-color">-->
+<!--                      </span>-->
+<!--        </button>-->
+<!--        <button mat-raised-button-->
+<!--                color="info"-->
+<!--                class="border-left"-->
+<!--                *ngIf="potentialClient.Contacts.Email"-->
+<!--                [matTooltip]="potentialClient.Contacts.Email"-->
+<!--                ngxClipboard-->
+<!--                [cbContent]="potentialClient.Contacts.Email"-->
+<!--        >-->
+<!--          <i class="fas fa-envelope mr-1" ></i>-->
+<!--          <span appHighlight-->
+<!--                [searchedWords]="filterForm.controls.Filter.value"-->
+<!--                [text]="potentialClient.Contacts.Email"-->
+<!--                classToApply="selected-color">-->
+<!--                      </span>-->
+<!--        </button>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <button mat-raised-button-->
+<!--            color="primary"-->
+<!--            class="mat-button-small ml-auto align-self-start"-->
+<!--            (click)="createAction(potentialClient.Id)">+</button>-->
+<!--  </div>-->
 </ng-template>
