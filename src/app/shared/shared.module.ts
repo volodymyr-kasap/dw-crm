@@ -37,6 +37,7 @@ import {QueryProgressBarComponent} from '../components/query-progress-bar/query-
 import {CommonModule} from '@angular/common';
 import {ListComponent} from '../components/list/list.component';
 import {RouterModule} from '@angular/router';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, SatDatepickerModule, SatNativeDateModule} from 'saturn-datepicker';
 
 const matModules = [
   MatCheckboxModule,
@@ -83,7 +84,11 @@ const matModules = [
     matModules,
     ReactiveFormsModule,
     RouterModule,
-    AvatarModule
+    AvatarModule,
+    SatDatepickerModule,
+    SatNativeDateModule
+  ],
+  providers: [
   ],
   exports: [
     matModules,
@@ -91,6 +96,7 @@ const matModules = [
     ReactiveFormsModule,
 
     AvatarModule,
+    SatDatepickerModule,
 
     QueryProgressBarComponent,
     ListComponent

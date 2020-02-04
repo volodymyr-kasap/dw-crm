@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule} from '@angular/core';
+import {LOCALE_ID, NgModule} from '@angular/core';
+import localeRu from '@angular/common/locales/ru';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -9,8 +10,9 @@ import {metaReducers, reducers} from './store';
 import {httpInterceptorProviders} from './core/interceptors';
 import {MainLayoutModule} from './layouts/main/main-layout.module';
 import {GuestLayoutModule} from './layouts/guest/guest-layout.module';
-import {CommonModule} from '@angular/common';
+import {CommonModule, registerLocaleData} from '@angular/common';
 
+registerLocaleData(localeRu);
 
 @NgModule({
   declarations: [
@@ -28,6 +30,7 @@ import {CommonModule} from '@angular/common';
     GuestLayoutModule
   ],
   providers: [
+    { provide: LOCALE_ID, useValue: 'ru' },
     httpInterceptorProviders
   ],
   bootstrap: [AppComponent]

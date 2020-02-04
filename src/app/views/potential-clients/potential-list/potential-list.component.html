@@ -1,1 +1,139 @@
-<p>potential-list works!</p>
+<div class="p-3">
+  <div
+    *ngIf="potentialClients"
+    class="d-flex justify-content-between mb-3">
+      <span class="color-title font-size-20px ml-2">Потенциальные клиенты: {{pageEvent.length}} из {{potentialClients.length}}</span>
+      <button
+        mat-flat-button
+        color="primary">
+        <!-- TODO: Добавление пот. клиента -->
+        Добавить
+      </button>
+  </div>
+
+  <div class="container-fluid">
+    <div class="row">
+
+      <section class="col-lg-3 col-sm-12">
+        <div class="row sticky">
+          <form
+            class="col-lg-12 col-sm-6"
+            [formGroup]="filterForm">
+            <mat-form-field class="col-12">
+              <input matInput
+                     placeholder="Поиск"
+                     formControlName="Filter">
+            </mat-form-field>
+            <mat-form-field class="col-12">
+              <input matInput
+                     readonly="true"
+                     placeholder="Дата добавления"
+                     [satDatepicker]="addPicker"
+                     formControlName="AddingDate">
+              <sat-datepicker-toggle
+                matSuffix
+                [for]="addPicker">
+              </sat-datepicker-toggle>
+              <sat-datepicker
+                #addPicker
+                [closeAfterSelection]="false"
+                [rangeMode]="true">
+              </sat-datepicker>
+            </mat-form-field>
+            <mat-form-field class="col-12">
+              <input matInput
+                     readonly="true"
+                     placeholder="Дата последнего события"
+                     [satDatepicker]="eventPicker"
+                     formControlName="EventDate">
+              <sat-datepicker-toggle
+                matSuffix
+                [for]="eventPicker">
+              </sat-datepicker-toggle>
+              <sat-datepicker
+                #eventPicker
+                [closeAfterSelection]="false"
+                [rangeMode]="true">
+              </sat-datepicker>
+            </mat-form-field>
+            <mat-form-field class="col-12">
+              <input matInput
+                     readonly="true"
+                     placeholder="Дата когда перезвонить"
+                     [satDatepicker]="pickerCall"
+                     formControlName="CallDate">
+              <sat-datepicker-toggle
+                matSuffix
+                [for]="pickerCall">
+              </sat-datepicker-toggle>
+              <sat-datepicker
+                #pickerCall
+                [closeAfterSelection]="false"
+                [rangeMode]="true">
+              </sat-datepicker>
+            </mat-form-field>
+          </form>
+        </div>
+      </section>
+
+      <section class="potential-clients col-lg-9 col-sm-12">
+
+        <div
+          *ngIf="urgentPotentialClients"
+          class="potential-clients-urgent">
+          <p class="potential-clients-urgent__header color-title font-size-16px font-weight-semibold bg-ff8d9266 p-2 border-radius-4px">
+            Неотложные:
+            <span class="font-weight-Bold font-size-18px">{{urgentPotentialClients().length}}</span>
+          </p>
+          <ul
+            *ngIf="urgentPotentialClients().length > 0"
+            class="list-unstyled">
+            <li
+              *ngFor="let potentialClient of urgentPotentialClients(); let index = index"
+                class="potential-clients-urgent__card row my-2 px-3 py-2">
+              <ng-container
+                [ngTemplateOutlet]="potentialUser"
+                [ngTemplateOutletContext]="{potentialClient: potentialClient}"></ng-container>
+            </li>
+          </ul>
+        </div>
+
+        <div
+          *ngIf="potentialClients"
+          class="potential-clients-all">
+          <p
+            class="potential-clients-all__header color-title font-size-16px font-weight-semibold bg-98ff8d66 p-2 border-radius-4px">
+            Все
+          </p>
+
+          <ul
+            *ngIf="paginationPotentialClients().length > 0"
+            class="list-unstyled">
+            <li
+              *ngFor="let potentialClient of paginationPotentialClients(); let index = index"
+              class="potential-clients-all__card row my-2 px-3 py-2">
+              <ng-container
+                [ngTemplateOutlet]="potentialUser"
+                [ngTemplateOutletContext]="{potentialClient: potentialClient}"></ng-container>
+            </li>
+          </ul>
+
+          <mat-paginator [length]="pageEvent.length"
+                         [pageSize]="pageEvent.pageSize"
+                         [pageSizeOptions]="pageSizeOptions"
+                         (page)="pagination($event)">
+          </mat-paginator>
+        </div>
+
+      </section>
+
+    </div>
+  </div>
+
+</div>
+
+<ng-template
+  #potentialUser
+  let-potentialClient="potentialClient">
+  {{potentialClient | json}}
+</ng-template>

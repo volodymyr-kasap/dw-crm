@@ -1,0 +1,55 @@
+@import "src/app/styles/colors";
+
+.sticky {
+  position: sticky;
+  top: 10px;
+}
+
+.potential-clients {
+  &-all {
+    &__header {
+      position: sticky;
+      box-shadow: 0 0 5px 3px #98ff8d66;
+      top: 0;
+      z-index: 100;
+    }
+
+    &__card {
+      border-radius: 8px;
+      border: 1px solid rgba(112, 112, 112, 0.3);
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.31);
+      min-height: 100px;
+      transition: 0.5s;
+    }
+  }
+
+  &-urgent {
+    &__header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 0 5px 3px #ff8d9266;
+    }
+
+    &__card {
+      border-radius: 8px;
+      border: 1px solid rgba(112, 112, 112, 0.3);
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.31);
+      min-height: 100px;
+      transition: 0.5s;
+    }
+  }
+
+}
+
+::ng-deep .mat-paginator {
+  background-color: $main-bg-color;
+}
+
+.bg-98ff8d66 {
+  background: #98ff8d66;
+}
+
+.bg-ff8d9266 {
+  background: #ff8d9266;
+}
