@@ -87,8 +87,18 @@
 
 }
 
+.chip-filter-item {
+  background: $white-color;
+  border: 1px rgba(109, 0, 255, 0.56) solid;
+  font-weight: 400;
+}
+
 ::ng-deep .mat-paginator {
   background-color: $main-bg-color;
+}
+
+::ng-deep .mat-menu-content {
+  max-height: 75vh;
 }
 
 .border-right {
@@ -106,3 +116,5 @@
 .bg-ff8d9266 {
   background: #ff8d9266;
 }
+
+

@@ -30,7 +30,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import { AvatarModule } from 'ngx-avatar';
 import {QueryProgressBarComponent} from '../components/query-progress-bar/query-progress-bar.component';
@@ -93,6 +93,7 @@ const matModules = [
   exports: [
     matModules,
 
+    FormsModule,
     ReactiveFormsModule,
 
     AvatarModule,

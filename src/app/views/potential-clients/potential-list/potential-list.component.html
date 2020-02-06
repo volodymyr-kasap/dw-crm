@@ -73,6 +73,99 @@
               </sat-datepicker>
             </mat-form-field>
           </form>
+          <div class="col-lg-12 col-sm-6 mb-3">
+            <button
+              mat-raised-button
+              color="primary"
+              class="col-lg-6 col-sm-12"
+              [matMenuTriggerFor]="Country">
+              Страна
+            </button>
+            <mat-menu #Country>
+              <mat-form-field class="position-sticky width-100 px-2" >
+                <input matInput
+                       placeholder="Поиск"
+                       name="countrySearch"
+                       #countryName
+                       (click)="$event.stopPropagation();">
+              </mat-form-field>
+              <div class="px-2 py-1"
+                   *ngFor="let country of countriesList"
+                   [ngClass]="{'d-none': !country.body.Name.toLowerCase().includes(countryName.value.toLowerCase())}">
+                <mat-checkbox
+                  [ngModel]="country.selected"
+                  (change)="country.selected = !country.selected; filterPotentialClients()"
+                  (click)="$event.stopPropagation();">
+                  {{ country.body.Name }}
+                </mat-checkbox>
+              </div>
+            </mat-menu>
+
+            <button
+              mat-raised-button
+              color="primary"
+              class="col-lg-6 col-sm-12"
+              [matMenuTriggerFor]="ClientType">
+              Тип
+            </button>
+            <mat-menu #ClientType>
+              <div class="px-2 py-1"
+                *ngFor="let type of clientTypeList">
+                <mat-checkbox
+                  [ngModel]="type.selected"
+                  (change)="type.selected = !type.selected; filterPotentialClients()"
+                  (click)="$event.stopPropagation();">
+                  {{ type | json}}
+                </mat-checkbox>
+              </div>
+            </mat-menu>
+          </div>
+          <div class="col-12">
+            <mat-chip-list>
+              <mat-chip
+                class="mb-3 chip-filter-item "
+                *ngIf="filterForm.controls.Filter.value"
+                [removable]="true"
+                (removed)="filterForm.controls.Filter.reset()">
+                Поиск: {{ filterForm.controls.Filter.value }}
+                <i matChipRemove class="fas fa-times d-flex align-items-center"></i>
+              </mat-chip>
+              <mat-chip
+                class="mb-3 chip-filter-item p-3"
+                *ngIf="filterForm.controls.EventDate.value"
+                [removable]="true"
+                (removed)="filterForm.controls.EventDate.reset()">
+                Дата события: {{(filterForm.controls.EventDate.value['begin'] | date: 'dd-MMM-yyyy') + ' - ' + (filterForm.controls.EventDate.value['end'] | date: 'dd-MMM-yyyy')}}
+                <i matChipRemove class="fas fa-times d-flex align-items-center"></i>
+              </mat-chip>
+              <mat-chip
+                class="mb-3 chip-filter-item p-3"
+                *ngIf="filterForm.controls.AddingDate.value"
+                [removable]="true"
+                (removed)="filterForm.controls.AddingDate.reset()">
+                Дата добавления: {{(filterForm.controls.AddingDate.value['begin'] | date: 'dd-MMM yyyy') + ' - ' + (filterForm.controls.AddingDate.value['end'] | date: 'dd-MMM yyyy')}}
+                <i matChipRemove class="fas fa-times d-flex align-items-center"></i>
+              </mat-chip>
+              <mat-chip
+                class="mb-3 chip-filter-item p-3"
+                *ngIf="filterForm.controls.CallDate.value"
+                [removable]="true"
+                (removed)="filterForm.controls.CallDate.reset()">
+                Когда перезвонить: {{(filterForm.controls.CallDate.value['begin'] | date: 'dd-MMM yyyy') + ' - ' + (filterForm.controls.CallDate.value['end'] | date: 'dd-MMM yyyy')}}
+                <i matChipRemove class="fas fa-times d-flex align-items-center"></i>
+              </mat-chip>
+
+              <mat-chip
+                class="mb-2 chip-filter-item "
+                *ngFor="let country of selectedCountry()"
+                [removable]="true"
+                (removed)="country.selected = false; filterPotentialClients();">
+                {{ country.body.Name }}
+                <i matChipRemove class="fas fa-times d-flex align-items-center"></i>
+              </mat-chip>
+
+            </mat-chip-list>
+          </div>
         </div>
       </section>
 

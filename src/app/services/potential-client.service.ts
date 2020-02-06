@@ -2,7 +2,7 @@ import {Store} from '@ngrx/store';
 import * as indexReducer from '../store/index';
 import {Injectable} from '@angular/core';
 import {PotentialClientApi} from '../core/api/potential-client.api';
-import {SetPotentialList} from '../store/actions/potential-client.actions';
+import {SetPotentialList, SetPotentialManagers} from '../store/actions/potential-client.actions';
 import {CompanyTypesEnum} from '../shared/company-types-enum';
 import {CompanyType} from '../models/company-type.model';
 import {WayToAdd} from '../models/way-to-add.model';
@@ -18,7 +18,7 @@ export class PotentialClientService {
   constructor(
     private store: Store<indexReducer.State>,
     private potentialClientsApi: PotentialClientApi) {
-    this.store.select(select => select.potential.companyTypes)
+    this.store.select(select => select.potential.companyTypesList)
       .subscribe(res => this.companyTypes = res);
     this.store.select(select => select.potential.wayToAddList)
       .subscribe(res => this.wayToAdd = res);
@@ -44,7 +44,7 @@ export class PotentialClientService {
             }
 
           });
-
+          this.store.dispatch(new SetPotentialManagers(managers));
           this.store.dispatch(new SetPotentialList(potClients));
         }
       });

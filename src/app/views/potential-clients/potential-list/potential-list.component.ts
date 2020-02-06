@@ -22,10 +22,11 @@ export class PotentialListComponent implements OnInit, OnDestroy {
   subscription = new Subscription();
   filterForm: FormGroup;
   managersList: ISelectedFilter[] = [];
-  countries: ISelectedFilter[] = [];
-  clientType: ISelectedFilter[] = [];
+  countriesList: ISelectedFilter[] = [];
+  clientTypeList: ISelectedFilter[] = [];
   eventsAction: ISelectedFilter[]  = [];
   eventResult: ISelectedFilter[] = [];
+  wayToAddList: ISelectedFilter[] = [];
   showTestClients = false;
   /* END filter */
 
@@ -51,7 +52,19 @@ export class PotentialListComponent implements OnInit, OnDestroy {
     this.subscription.add(
       this.filterForm.valueChanges.pipe(debounceTime(500)).subscribe(() => this.filterPotentialClients())
     );
-    this.filterPotentialClients();
+    const store$ =  this.store.select(state => state)
+      .subscribe(state => {
+        if (state.potential.clientList && state.potential.managersList) {
+          this.countriesList = state.country.countryList.map( x => ({selected: false, body: x }));
+          this.wayToAddList = state.potential.wayToAddList.map( x => ({selected: false, body: x }));
+          this.managersList = state.potential.managersList.map( x => ({selected: false, body: x }));
+          this.eventsAction = state.potential.eventsActionList.map( x => ({selected: false, body: x }));
+          this.eventResult = state.potential.eventResultList.map( x => ({selected: false, body: x }));
+          this.clientTypeList = state.potential.companyTypesList.map( x => ({selected: false, body: x }));
+          this.filterPotentialClients();
+        }
+    });
+    this.subscription.add(store$);
   }
 
   ngOnDestroy() {
@@ -93,11 +106,11 @@ export class PotentialListComponent implements OnInit, OnDestroy {
         return (potClient.id ? potClient.id.toString().includes(searchString) : null) ||
           (potClient.companyName ? potClient.companyName.toLowerCase().includes(searchString) : null) ||
           (potClient.name ? potClient.name.toLocaleLowerCase().includes(searchString) : null) ||
-          (potClient.contact.phone ? searchString.replace(/\D+/g, "") !== '' ?
-            potClient.contact.phone.toLocaleLowerCase().replace(/\D+/g, "").includes(searchString.replace(/\D+/g, "")) : null
+          (potClient.contacts.phone ? searchString.replace(/\D+/g, "") !== '' ?
+            potClient.contacts.phone.toLocaleLowerCase().replace(/\D+/g, "").includes(searchString.replace(/\D+/g, "")) : null
           : null) ||
-          (potClient.contact.name ? potClient.contact.name.toLocaleLowerCase().includes(searchString) : null) ||
-          (potClient.contact.email ? potClient.contact.email.toLocaleLowerCase().includes(searchString) : null) ||
+          (potClient.contacts.name ? potClient.contacts.name.toLocaleLowerCase().includes(searchString) : null) ||
+          (potClient.contacts.email ? potClient.contacts.email.toLocaleLowerCase().includes(searchString) : null) ||
           ((potClient.lastEvent && potClient.lastEvent.comment) ? textBlock.innerText.toLocaleLowerCase().includes(searchString) : null)
         }
       );
@@ -171,6 +184,10 @@ export class PotentialListComponent implements OnInit, OnDestroy {
         return new Date(x.lastEvent.notificationDate).setHours(0, 0, 0, 0) === new Date().setHours(0, 0, 0, 0);
       }
     });
+  }
+
+  selectedCountry() {
+    return this.countriesList.filter(x => x.selected);
   }
 
 

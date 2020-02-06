@@ -8,22 +8,24 @@ import {PotentialClientAction, PotentialUnion} from '../actions/potential-client
 import {WayToAddEnum} from '../../shared/way-to-add-enum';
 import {CompanyType} from '../../models/company-type.model';
 import {CompanyTypesEnum} from '../../shared/company-types-enum';
+import {Manager} from '../../models/manager.model';
 
 export interface State  {
   clientList: PotentialClient[];
   clientsCount: number;
   currentClient: PotentialClient;
-  //managersList: Manager[];
+  managersList: Manager[];
   eventsActionList: EventsAction[];
   eventResultList: EventsResult[];
   wayToAddList: WayToAdd[];
-  companyTypes: CompanyType[];
+  companyTypesList: CompanyType[];
 }
 
 export const initialState: State = {
   clientList: null,
   clientsCount: null,
   currentClient: null,
+  managersList: null,
   eventsActionList: [
     new EventsAction(EventsActionEnum.TelephoneConversation, 'Разговор', 'fas fa-phone', 'color-158f44', 'bg-158f44 text-white'),
     new EventsAction(EventsActionEnum.Correspondence, 'Переписка', 'fas fa-sms', 'color-db8b22', 'bg-c51c24 text-white'),
@@ -56,7 +58,7 @@ export const initialState: State = {
     new WayToAdd(WayToAddEnum.PhoneCall, 'Телефонный звонок', 'fas fa-phone-volume'),
     new WayToAdd(WayToAddEnum.SiteOnlineChat, 'Онлайн чат на сайте', 'fas fa-comment'),
   ],
-  companyTypes: [
+  companyTypesList: [
     new CompanyType(CompanyTypesEnum.Brand, 'Бренд'),
     new CompanyType(CompanyTypesEnum.Shop, 'Магазин')
   ]
@@ -69,6 +71,11 @@ export function potentialReducer(state: State = initialState, action: PotentialU
         ...state,
         clientList: action.payload,
         clientsCount: action.payload.length
+      };
+    case PotentialClientAction.SetPotentialManagers:
+      return {
+        ...state,
+        managersList: action.payload
       };
     case PotentialClientAction.SetCurrentPotentialClient: {
       return {

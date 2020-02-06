@@ -2,6 +2,7 @@ import {Contact} from './contact.model';
 import {PotClientEvent} from './potential-client-event.model';
 import {CompanyType} from './company-type.model';
 import {WayToAdd} from './way-to-add.model';
+import {Manager} from './manager.model';
 
 export class PotentialClient {
   constructor(
@@ -14,8 +15,8 @@ export class PotentialClient {
     public lastChangeDate: Date,
     public additionDate: Date,
     public isDemo: boolean,
-    public managers: any[] | number[],
-    public contact: Contact,
+    public managers: Manager[] | Partial<Manager>[],
+    public contacts: Contact,
     public lastEvent: PotClientEvent,
     public wayToAdd: WayToAdd | number
     ) {
