@@ -6,6 +6,8 @@ import {EventsActionEnum} from '../../shared/events-action-enum';
 import {EventsResultEnum} from '../../shared/events-result-enum';
 import {PotentialClientAction, PotentialUnion} from '../actions/potential-client.actions';
 import {WayToAddEnum} from '../../shared/way-to-add-enum';
+import {CompanyType} from '../../models/company-type.model';
+import {CompanyTypesEnum} from '../../shared/company-types-enum';
 
 export interface State  {
   clientList: PotentialClient[];
@@ -15,7 +17,7 @@ export interface State  {
   eventsActionList: EventsAction[];
   eventResultList: EventsResult[];
   wayToAddList: WayToAdd[];
-  companyTypes: string[];
+  companyTypes: CompanyType[];
 }
 
 export const initialState: State = {
@@ -44,17 +46,20 @@ export const initialState: State = {
     new EventsResult(EventsResultEnum.NotRelevant, 'fas fa-window-close', 'color-6c757d', 'Не заинтересован', 'bd-BABABA text-white'),
   ],
   wayToAddList: [
-    new WayToAdd( WayToAddEnum.TryDemo, 'Через Demo тур', 'fas fa-laptop'),
-    new WayToAdd( WayToAddEnum.Skype, 'Добавление в skype', 'fab fa-skype'),
-    new WayToAdd( WayToAddEnum.SiteRegistration, 'Регистрация на сайте', ''),
-    new WayToAdd( WayToAddEnum.ActiveClientSearch, 'Активный поиск клиента', 'fas fa-search'),
-    new WayToAdd( WayToAddEnum.EmailMessage, 'Письмо на почту', 'fas fa-envelope'),
-    new WayToAdd( WayToAddEnum.Exhibition, 'Найден на выставке', 'fas fa-comments'),
-    new WayToAdd( WayToAddEnum.OtherCompanyRecomendation, 'Рекомендации другой компании', ''),
-    new WayToAdd( WayToAddEnum.PhoneCall, 'Телефонный звонок', 'fas fa-phone-volume'),
-    new WayToAdd( WayToAddEnum.SiteOnlineChat, 'Онлайн чат на сайте', 'fas fa-comment'),
+    new WayToAdd(WayToAddEnum.TryDemo, 'Через Demo тур', 'fas fa-laptop'),
+    new WayToAdd(WayToAddEnum.Skype, 'Добавление в skype', 'fab fa-skype'),
+    new WayToAdd(WayToAddEnum.SiteRegistration, 'Регистрация на сайте', 'fas fa-user-plus'),
+    new WayToAdd(WayToAddEnum.ActiveClientSearch, 'Активный поиск клиента', 'fas fa-search'),
+    new WayToAdd(WayToAddEnum.EmailMessage, 'Письмо на почту', 'fas fa-envelope'),
+    new WayToAdd(WayToAddEnum.Exhibition, 'Найден на выставке', 'fas fa-comments'),
+    new WayToAdd(WayToAddEnum.OtherCompanyRecomendation, 'Рекомендации другой компании', ''),
+    new WayToAdd(WayToAddEnum.PhoneCall, 'Телефонный звонок', 'fas fa-phone-volume'),
+    new WayToAdd(WayToAddEnum.SiteOnlineChat, 'Онлайн чат на сайте', 'fas fa-comment'),
   ],
-  companyTypes: ['', 'Магазин', 'Бренд']
+  companyTypes: [
+    new CompanyType(CompanyTypesEnum.Brand, 'Бренд'),
+    new CompanyType(CompanyTypesEnum.Shop, 'Магазин')
+  ]
 };
 
 export function potentialReducer(state: State = initialState, action: PotentialUnion)  {

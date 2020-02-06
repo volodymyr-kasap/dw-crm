@@ -13,4 +13,10 @@ export class PotentialClientApi {
     return this.http.get<PotentialClient[]>(`potentialClients`);
   }
 
+  getManagers(): Observable<any[]> {
+    return this.http.get<any[]>(`managers`);
+  }
+
+
+
 }

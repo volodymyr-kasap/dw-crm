@@ -42,8 +42,61 @@
 
 }
 
+.potential-client {
+  font-weight: 400;
+  font-size: 16px;
+
+  &__id {
+    color: #707070;
+  }
+
+  &__type {
+    text-align: center;
+  }
+
+  &__country {
+    text-align: center;
+  }
+
+  &__name {
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+
+  &__way-to-add {
+    padding-left: 10px;
+    padding-right: 10px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  &__addition-date {
+    padding-left: 10px;
+    padding-right: 10px;
+    color: #707070;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 400;
+  }
+
+  &__managers {
+    display: flex;
+    list-style: unset;
+  }
+
+}
+
 ::ng-deep .mat-paginator {
   background-color: $main-bg-color;
+}
+
+.border-right {
+  border-right: 1px #e0e0e0 solid;
+}
+
+.border-left {
+  border-left: 1px #e0e0e0 solid;
 }
 
 .bg-98ff8d66 {
