@@ -4,10 +4,10 @@ import {Store} from '@ngrx/store';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {ISelectedFilter} from '../../../interfaces/selected-filter.interface';
 import {PotentialClientService} from '../../../services/potential-client.service';
-import {PageEvent} from '@angular/material';
 import {Subscription} from 'rxjs';
 import {debounceTime} from 'rxjs/operators';
 import {PotentialClient} from '../../../models/potential-client.model';
+import {PageEvent} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-potential-list',
