@@ -1,8 +1,8 @@
-<div class="p-3">
+<div class="p-3"
+  *ngIf="potentialClients; else loader">
   <div
-    *ngIf="potentialClients"
     class="d-flex justify-content-between mb-3">
-      <span class="color-title font-size-20px ml-2">Потенциальные клиенты: {{pageEvent.length}} из {{potentialClients.length}}</span>
+      <span class="color-title font-size-20px ml-2">Потенциальные клиенты: {{pageEvent.length}} из {{potentialClientsCount$ | async}}</span>
       <button
         mat-flat-button
         color="primary">
@@ -74,15 +74,18 @@
             </mat-form-field>
           </form>
           <div class="col-lg-12 col-sm-6 mb-3">
+            <!--Country-->
             <button
               mat-raised-button
               color="primary"
-              class="col-lg-6 col-sm-12"
+              class="col-lg-4 col-sm-12"
+              (menuOpened)="countryName.value =''"
               [matMenuTriggerFor]="Country">
               Страна
             </button>
-            <mat-menu #Country>
-              <mat-form-field class="position-sticky width-100 px-2" >
+            <mat-menu
+              #Country>
+              <mat-form-field class="width-100 px-2" >
                 <input matInput
                        placeholder="Поиск"
                        name="countrySearch"
@@ -91,39 +94,64 @@
               </mat-form-field>
               <div class="px-2 py-1"
                    *ngFor="let country of countriesList"
-                   [ngClass]="{'d-none': !country.body.Name.toLowerCase().includes(countryName.value.toLowerCase())}">
+                   [ngClass]="{'d-none': !country.body.name.toLowerCase().includes(countryName.value.toLowerCase())}">
                 <mat-checkbox
                   [ngModel]="country.selected"
                   (change)="country.selected = !country.selected; filterPotentialClients()"
                   (click)="$event.stopPropagation();">
-                  {{ country.body.Name }}
+                  {{ country.body.name }}
                 </mat-checkbox>
               </div>
             </mat-menu>
-
+            <!--ClientType-->
             <button
               mat-raised-button
               color="primary"
-              class="col-lg-6 col-sm-12"
+              class="col-lg-4 col-sm-12"
               [matMenuTriggerFor]="ClientType">
               Тип
             </button>
-            <mat-menu #ClientType>
+            <mat-menu
+              #ClientType>
               <div class="px-2 py-1"
                 *ngFor="let type of clientTypeList">
                 <mat-checkbox
                   [ngModel]="type.selected"
                   (change)="type.selected = !type.selected; filterPotentialClients()"
                   (click)="$event.stopPropagation();">
-                  {{ type | json}}
+                  {{ type.body.name }}
                 </mat-checkbox>
+              </div>
+            </mat-menu>
+            <!--Managers-->
+            <button mat-raised-button
+                    color="primary"
+                    class="col-lg-4 col-sm-12"
+                    (menuOpened)="managerName.value =''"
+                    [matMenuTriggerFor]="Manager">Менеджер</button>
+            <mat-menu
+              #Manager>
+              <mat-form-field class="width-100 px-2">
+                <input matInput
+                       placeholder="Поиск"
+                       name="managersSearch"
+                       #managerName
+                       (click)="$event.stopPropagation();">
+              </mat-form-field>
+              <div class="px-2 py-1"
+                   *ngFor="let manager of managersList"
+                   [ngClass]="{'d-none': !manager.body.name.toLowerCase().includes(managerName.value.toLowerCase())}">
+                <mat-checkbox
+                  [ngModel]="manager.selected"
+                  (change)="manager.selected = !manager.selected; filterPotentialClients()"
+                  (click)="$event.stopPropagation();">{{manager.body.name}}</mat-checkbox>
               </div>
             </mat-menu>
           </div>
           <div class="col-12">
             <mat-chip-list>
               <mat-chip
-                class="mb-3 chip-filter-item "
+                class="mb-3 chip-filter-item"
                 *ngIf="filterForm.controls.Filter.value"
                 [removable]="true"
                 (removed)="filterForm.controls.Filter.reset()">
@@ -154,13 +182,31 @@
                 Когда перезвонить: {{(filterForm.controls.CallDate.value['begin'] | date: 'dd-MMM yyyy') + ' - ' + (filterForm.controls.CallDate.value['end'] | date: 'dd-MMM yyyy')}}
                 <i matChipRemove class="fas fa-times d-flex align-items-center"></i>
               </mat-chip>
-
               <mat-chip
-                class="mb-2 chip-filter-item "
+                class="mb-2 chip-filter-item"
                 *ngFor="let country of selectedCountry()"
                 [removable]="true"
                 (removed)="country.selected = false; filterPotentialClients();">
-                {{ country.body.Name }}
+                <span
+                  class="flag-icon flag-icon-{{ country.body.code | lowercase }} mr-1">
+                </span>
+                {{ country.body.name }}
+                <i matChipRemove class="fas fa-times d-flex align-items-center"></i>
+              </mat-chip>
+              <mat-chip
+                class="mb-3 chip-filter-item "
+                *ngFor="let type of selectedClientType()"
+                [removable]="true"
+                (removed)="type.selected = false; filterPotentialClients();">
+                {{ type.body.name }}
+                <i matChipRemove class="fas fa-times d-flex align-items-center"></i>
+              </mat-chip>
+              <mat-chip
+                class="mb-3 chip-filter-item "
+                *ngFor="let manager of selectedManager()"
+                [removable]="true"
+                (removed)="manager.selected = false; filterPotentialClients();">
+                {{manager.body.name}}
                 <i matChipRemove class="fas fa-times d-flex align-items-center"></i>
               </mat-chip>
 
@@ -170,7 +216,6 @@
       </section>
 
       <section class="potential-clients col-lg-9 col-sm-12">
-
         <div
           *ngIf="urgentPotentialClients"
           class="potential-clients-urgent">
@@ -183,7 +228,7 @@
             class="list-unstyled">
             <li
               *ngFor="let potentialClient of urgentPotentialClients(); let index = index"
-                class="potential-clients-urgent__card my-2 px-3 py-2">
+              class="potential-clients-urgent__card my-2 px-3 py-2">
               <ng-container
                 [ngTemplateOutlet]="potentialUser"
                 [ngTemplateOutletContext]="{potentialClient: potentialClient}"></ng-container>
@@ -211,13 +256,14 @@
             </li>
           </ul>
 
-          <mat-paginator [length]="pageEvent.length"
-                         [pageSize]="pageEvent.pageSize"
-                         [pageSizeOptions]="pageSizeOptions"
-                         (page)="pagination($event)">
+          <mat-paginator
+            #paginator
+            [length]="pageEvent.length"
+            [pageSize]="pageEvent.pageSize"
+            [pageSizeOptions]="pageSizeOptions"
+            (page)="pagination($event)">
           </mat-paginator>
         </div>
-
       </section>
 
     </div>
@@ -353,4 +399,8 @@
 <!--            class="mat-button-small ml-auto align-self-start"-->
 <!--            (click)="createAction(potentialClient.Id)">+</button>-->
 <!--  </div>-->
+</ng-template>
+
+<ng-template #loader>
+  <app-loader></app-loader>
 </ng-template>

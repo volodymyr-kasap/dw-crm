@@ -11,6 +11,7 @@ import {httpInterceptorProviders} from './core/interceptors';
 import {MainLayoutModule} from './layouts/main/main-layout.module';
 import {GuestLayoutModule} from './layouts/guest/guest-layout.module';
 import {CommonModule, registerLocaleData} from '@angular/common';
+import { LoaderComponent } from './components/loader/loader.component';
 
 registerLocaleData(localeRu);
 

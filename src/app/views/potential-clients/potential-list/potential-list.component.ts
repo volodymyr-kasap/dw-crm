@@ -1,13 +1,19 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import * as indexReducer from '../../../store/index';
-import {Store} from '@ngrx/store';
+import {select, Store} from '@ngrx/store';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {ISelectedFilter} from '../../../interfaces/selected-filter.interface';
 import {PotentialClientService} from '../../../services/potential-client.service';
-import {Subscription} from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
 import {debounceTime} from 'rxjs/operators';
 import {PotentialClient} from '../../../models/potential-client.model';
-import {PageEvent} from '@angular/material/paginator';
+import {MatPaginator, PageEvent} from '@angular/material/paginator';
+import {Manager} from '../../../models/manager.model';
+import {Country} from '../../../models/country.models';
+import {EventsAction} from '../../../models/events-action.model';
+import {EventsResult} from '../../../models/events-result.model';
+import {WayToAdd} from '../../../models/way-to-add.model';
+import {CompanyType} from '../../../models/company-type.model';
 
 @Component({
   selector: 'app-potential-list',
@@ -16,17 +22,20 @@ import {PageEvent} from '@angular/material/paginator';
 })
 export class PotentialListComponent implements OnInit, OnDestroy {
 
-  potentialClients: PotentialClient[] = [];
+  @ViewChild('paginator') paginator: MatPaginator;
+
+  potentialClients: PotentialClient[] = null;
+  potentialClientsCount$: Observable<number>;
 
   /* filter */
   subscription = new Subscription();
   filterForm: FormGroup;
-  managersList: ISelectedFilter[] = [];
-  countriesList: ISelectedFilter[] = [];
-  clientTypeList: ISelectedFilter[] = [];
-  eventsAction: ISelectedFilter[]  = [];
-  eventResult: ISelectedFilter[] = [];
-  wayToAddList: ISelectedFilter[] = [];
+  managersList: ISelectedFilter<Manager>[] = [];
+  countriesList: ISelectedFilter<Country>[] = [];
+  clientTypeList: ISelectedFilter<CompanyType>[] = [];
+  eventsAction: ISelectedFilter<EventsAction>[]  = [];
+  eventResult: ISelectedFilter<EventsResult>[] = [];
+  wayToAddList: ISelectedFilter<WayToAdd>[] = [];
   showTestClients = false;
   /* END filter */
 
@@ -62,29 +71,16 @@ export class PotentialListComponent implements OnInit, OnDestroy {
           this.eventResult = state.potential.eventResultList.map( x => ({selected: false, body: x }));
           this.clientTypeList = state.potential.companyTypesList.map( x => ({selected: false, body: x }));
           this.filterPotentialClients();
+          this.potentialClientsCount$ = this.store.pipe(select(state => state.potential.clientsCount));
         }
     });
+
     this.subscription.add(store$);
   }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
-
-  /* pagination */
-  initEventPage() {
-    this.pageEvent.previousPageIndex = 0;
-    this.pageEvent.pageIndex = 1;
-    this.pageEvent.pageSize = 20;
-    this.pageEvent.length = 0;
-  }
-
-  pagination(event) {
-    this.pageEvent = event;
-    this.pageEvent.pageIndex = this.pageEvent.pageIndex + 1;
-  }
-  /* END pagination */
-
   /* filter */
   filterPotentialClients() {
     this.store.select(state => state.potential.clientList)
@@ -132,8 +128,8 @@ export class PotentialListComponent implements OnInit, OnDestroy {
     if (filterValue.AddingDate) {
       const begin = filterValue.AddingDate.begin.setHours(0, 0, 0, 0);
       const end = filterValue.AddingDate.end.setHours(0, 0, 0, 0);
-      this.potentialClients = this.potentialClients.filter(x => {
-          const itemDate = new Date(x.additionDate).setHours(0, 0, 0, 0);
+      this.potentialClients = this.potentialClients.filter(potClient => {
+          const itemDate = new Date(potClient.additionDate).setHours(0, 0, 0, 0);
           return (begin <= itemDate) && (end >= itemDate);
         }
       );
@@ -146,15 +142,45 @@ export class PotentialListComponent implements OnInit, OnDestroy {
           if (!potClient.lastEvent) {
             return false;
           }
-          const itemDate = potClient.lastEvent.notificationDate.setHours(0, 0, 0, 0);
+          const itemDate = new Date(potClient.lastEvent.notificationDate).setHours(0, 0, 0, 0);
           return (begin <= itemDate) && (end >= itemDate);
         }
       );
     }
 
+    const selectedManagers = this.selectedManager().map( x => x.body.id);
+    if (selectedManagers.length > 0) {
+      this.potentialClients = this.potentialClients.filter(client => {
+        return selectedManagers.some(id => {
+          return client.managers.some(x => x.id === id);
+        });
+      });
+    }
+
+    const selectedCountry = this.selectedCountry().map(x => x.body.code.toLocaleLowerCase());
+    if(selectedCountry.length > 0) {
+      this.potentialClients = this.potentialClients.filter(client => {
+        if (client.countryName) {
+          return selectedCountry.includes(client.countryCode.toLocaleLowerCase());
+        }
+      });
+    }
+
+    const selectedClientType = this.selectedClientType().map(x => x.body.id);
+    if(selectedClientType.length > 0) {
+      this.potentialClients = this.potentialClients.filter(client => {
+        if (client.type) {
+          return selectedClientType.includes((<CompanyType>client.type).id);
+        }
+      });
+    }
+
+    if (this.paginator) {
+      this.paginator.firstPage();
+    }
+
     this.pageEvent.length =this.potentialClients.length;
   }
-
   /* END filter */
 
   paginationPotentialClients(): PotentialClient[] {
@@ -179,16 +205,38 @@ export class PotentialListComponent implements OnInit, OnDestroy {
   urgentPotentialClients(): PotentialClient[] {
     // return this.potentialClients.slice(0, 5);
     // TODO
-    return this.potentialClients.filter(x => {
+    return this.potentialClients ? this.potentialClients.filter(x => {
       if (x.lastEvent && x.lastEvent.notificationDate !== null) {
         return new Date(x.lastEvent.notificationDate).setHours(0, 0, 0, 0) === new Date().setHours(0, 0, 0, 0);
       }
-    });
+    }) : null;
   }
 
   selectedCountry() {
     return this.countriesList.filter(x => x.selected);
   }
+
+  selectedClientType() {
+    return this.clientTypeList.filter(x => x.selected);
+  }
+
+  selectedManager() {
+    return this.managersList.filter(x => x.selected);
+  }
+
+  /* pagination */
+  initEventPage() {
+    this.pageEvent.previousPageIndex = 0;
+    this.pageEvent.pageIndex = 1;
+    this.pageEvent.pageSize = 20;
+    this.pageEvent.length = 0;
+  }
+
+  pagination(event) {
+    this.pageEvent = event;
+    this.pageEvent.pageIndex = this.pageEvent.pageIndex + 1;
+  }
+  /* END pagination */
 
 
 }

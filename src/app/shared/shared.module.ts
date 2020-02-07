@@ -48,6 +48,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import {AvatarModule} from 'ngx-avatar';
 import {SatDatepickerModule, SatNativeDateModule} from 'saturn-datepicker';
+import {LoaderComponent} from '../components/loader/loader.component';
 
 const matModules = [
   A11yModule,
@@ -99,7 +100,8 @@ const matModules = [
 @NgModule({
   declarations: [
     QueryProgressBarComponent,
-    ListComponent
+    ListComponent,
+    LoaderComponent
   ],
   imports: [
     CommonModule,
@@ -123,7 +125,8 @@ const matModules = [
     SatDatepickerModule,
 
     QueryProgressBarComponent,
-    ListComponent
+    ListComponent,
+    LoaderComponent
   ]
 
 })

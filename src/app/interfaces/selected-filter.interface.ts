@@ -1,4 +1,4 @@
-export interface ISelectedFilter {
+export interface ISelectedFilter<T> {
   selected: boolean,
-  body: any
+  body: T
 }
