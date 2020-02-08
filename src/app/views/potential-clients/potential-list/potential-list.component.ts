@@ -14,6 +14,9 @@ import {EventsAction} from '../../../models/events-action.model';
 import {EventsResult} from '../../../models/events-result.model';
 import {WayToAdd} from '../../../models/way-to-add.model';
 import {CompanyType} from '../../../models/company-type.model';
+import {LocalStorageService} from '../../../core/services/local-storage.service';
+import {StorageKey} from '../../../shared/storage-keys';
+import {IPotentialClientsFilter} from '../../../interfaces/potential-clients-filter';
 
 @Component({
   selector: 'app-potential-list',
@@ -46,6 +49,7 @@ export class PotentialListComponent implements OnInit, OnDestroy {
     private store: Store<indexReducer.State>,
     private potentialClientService: PotentialClientService,
     private fb: FormBuilder,
+    private localStorageService: LocalStorageService
   ) {
     this.filterForm = this.fb.group({
       Filter: new FormControl(''),
@@ -70,6 +74,7 @@ export class PotentialListComponent implements OnInit, OnDestroy {
           this.eventAction = state.potential.eventsActionList.map( x => ({selected: false, body: x }));
           this.eventResult = state.potential.eventResultList.map( x => ({selected: false, body: x }));
           this.clientTypeList = state.potential.companyTypesList.map( x => ({selected: false, body: x }));
+          this.initFromLocalStorage();
           this.filterPotentialClients();
           this.potentialClientsCount$ = this.store.pipe(select(state => state.potential.clientsCount));
         }
@@ -211,6 +216,7 @@ export class PotentialListComponent implements OnInit, OnDestroy {
       this.potentialClients = this.potentialClients.filter(client => client.isDemo);
     }
 
+    this.saveLocalStorage();
     if (this.paginator) {
       this.paginator.firstPage();
     }
@@ -297,6 +303,59 @@ export class PotentialListComponent implements OnInit, OnDestroy {
       }
     }
     return false;
+  }
+
+  findEventResult(id: number): EventsResult {
+    return this.eventResult.find(x => x.body.id === id).body;
+  }
+
+  findEventAction(id: number): EventsAction {
+    return this.eventAction.find(x => x.body.id === id).body;
+  }
+
+  clearSettings() {
+    this.filterForm.reset();
+    this.eventResult.forEach(x => x.selected = false);
+    this.wayToAddList.forEach(x => x.selected = false);
+    this.eventAction.forEach(x => x.selected = false);
+    this.managersList.forEach(x => x.selected = false);
+    this.countriesList.forEach(x => x.selected = false);
+    this.clientTypeList.forEach(x => x.selected = false);
+    this.showTestClients = false;
+    this.localStorageService.remove(StorageKey.Potential_Clients_Filter);
+  }
+
+  saveLocalStorage() {
+    this.localStorageService.set<IPotentialClientsFilter>(StorageKey.Potential_Clients_Filter,
+        {
+          filterForm: this.filterForm.value,
+          eventResult: this.eventResult,
+          wayToAddList: this.wayToAddList,
+          eventAction: this.eventAction,
+          managersList: this.managersList,
+          countriesList: this.countriesList,
+          clientTypeList: this.clientTypeList,
+          showTestClients: this.showTestClients,
+        });
+  }
+
+  initFromLocalStorage() {
+    try {
+      if (this.localStorageService.get<IPotentialClientsFilter>(StorageKey.Potential_Clients_Filter)) {
+        let filter = this.localStorageService.get<IPotentialClientsFilter>(StorageKey.Potential_Clients_Filter);
+        this.filterForm.setValue(filter.filterForm);
+        this.eventResult = filter.eventResult;
+        this.wayToAddList = filter.wayToAddList;
+        this.eventAction = filter.eventAction;
+        this.managersList = filter.managersList;
+        this.countriesList = filter.countriesList;
+        this.clientTypeList = filter.clientTypeList;
+        this.showTestClients = filter.showTestClients;
+      }
+    } catch (e) {
+      this.localStorageService.remove(StorageKey.Potential_Clients_Filter);
+    }
+
   }
 
 

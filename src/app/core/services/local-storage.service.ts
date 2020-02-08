@@ -8,18 +8,17 @@ export class LocalStorageService {
 
   constructor () {}
 
-  public get<T> (key: StorageKey): T {
+  public get<T>(key: StorageKey): T {
     const data = localStorage.getItem(key);
-
     return (data) ? JSON.parse(data) : null;
   }
 
-  public set (key: StorageKey, data: any) {
+  public set<T>(key: StorageKey, data: T) {
     const body = JSON.stringify(data);
     localStorage.setItem(key, body);
   }
 
-  public remove (key: StorageKey) {
+  public remove(key: StorageKey) {
     localStorage.removeItem(key);
   }
 

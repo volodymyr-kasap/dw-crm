@@ -213,6 +213,15 @@
 
             </div>
           </div>
+          <div class="col-12 d-flex justify-content-center mb-3">
+            <button
+              color="accent"
+              mat-button
+              (click)="clearSettings()">
+              <i class="fas fa-broom mr-1"></i>
+              Очистить все настройки
+            </button>
+          </div>
           <div class="col-12">
             <mat-chip-list>
               <mat-chip
@@ -428,17 +437,41 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-12 mb-3">
-      <div *ngIf="potentialClient.lastEvent">
-        <ng-container [ngTemplateOutlet]="lastEvent"
-                      [ngTemplateOutletContext]="{lastEvent: potentialClient.lastEvent}"></ng-container>
-      </div>
+  <div class="col-8 mb-3 row align-items-center">
+    <span class="col-4 border-right font-weight-Semibold font-size-14px pr-2"
+      *ngIf="potentialClient.lastEvent">
+      <span>{{potentialClient.lastEvent.date | date: 'dd MMM y'}}</span>
+      -
+      <span *ngIf="potentialClient.lastEvent.notificationDate"
+        [ngClass]="{'color-red font-weight-bold': checkNotificationDate(potentialClient.lastEvent.notificationDate)}">
+        {{potentialClient.lastEvent.notificationDate | date: 'dd MMM y'}}
+      </span>
+    </span>
+    <div class="col-8 last-event__comment font-size-14px"
+         *ngIf="potentialClient.lastEvent"
+         appHighlight
+         [searchedWords]="filterForm.controls.Filter.value"
+         [text]="potentialClient.lastEvent.comment.toString()">
     </div>
   </div>
-  <div class="row">
-    <div class="col-6">
-      <div class="row potential-client-contact">
-        <div class="col-4 d-flex justify-content-center align-items-center border-right">
+  <div class="col-4 mb-3 row align-items-center justify-content-end"
+       *ngIf="potentialClient.lastEvent">
+      <span class="px-3 py-2 font-size-14px mr-3 last-event__result"
+         *ngIf="findEventResult(potentialClient.lastEvent.eventsResult) as eventResultBody"
+         [ngClass]="eventResultBody.colorClass">
+        <i [ngClass]="eventResultBody.iconClass + ' mr-1'"></i>
+        {{eventResultBody.text}}
+      </span>
+      <span class="px-3 py-2 font-size-14px last-event__action font-weight-regular"
+            *ngIf="findEventAction(potentialClient.lastEvent.eventAction) as eventActionBody"
+         [ngClass]="eventActionBody.itemClass">
+        <i [ngClass]="eventActionBody.iconClass + ' mr-1'"></i>
+        {{eventActionBody.text}}
+      </span>
+  </div>
+  </div>
+  <div class="row potential-client-contact">
+    <div class="col-4 d-flex justify-content-center align-items-center border-right">
           <span
             *ngIf="potentialClient.contacts?.name"
             class="potential-client-contact__name text-overflow-ellipsis"
@@ -447,41 +480,38 @@
             [text]="potentialClient.contacts?.name"
             [searchedWords]="filterForm.controls.Filter.value">
           </span>
-        </div>
-        <div class="col-4 d-flex justify-content-center align-items-center border-right">
-          <button
-            mat-button
-            color="info"
-            class="font-size-14px"
-            [cdkCopyToClipboard]="potentialClient.contacts?.phone"
-            *ngIf="potentialClient.contacts?.phone"
-            [matTooltip]="potentialClient.contacts?.phone">
-            <i class="fas fa-phone mr-1"></i>
-            <span
-              appHighlight
-              [searchedWords]="filterForm.controls.Filter.value"
-              [text]="potentialClient.contacts?.phone">
-            </span>
-          </button>
-        </div>
-        <div class="col-4 d-flex justify-content-center align-items-center border-right">
-          <button
-            mat-button
-            color="info"
-            class="font-size-14px"
-            [cdkCopyToClipboard]="potentialClient.contacts?.email"
-            *ngIf="potentialClient.contacts?.email"
-            [matTooltip]="potentialClient.contacts?.email">
-            <i class="fas fa-envelope mr-1"></i>
-            <span
-              appHighlight
-              [searchedWords]="filterForm.controls.Filter.value"
-              [text]="potentialClient.contacts?.email">
-            </span>
-          </button>
-      </div>
     </div>
-
+    <div class="col-4 d-flex justify-content-center align-items-center border-right">
+      <button
+        mat-button
+        color="info"
+        class="mat-flex-button font-size-14px"
+        [cdkCopyToClipboard]="potentialClient.contacts?.phone"
+        *ngIf="potentialClient.contacts?.phone"
+        [matTooltip]="potentialClient.contacts?.phone">
+        <i class="fas fa-phone mr-1"></i>
+        <span
+          appHighlight
+          [searchedWords]="filterForm.controls.Filter.value"
+          [text]="potentialClient.contacts?.phone">
+        </span>
+      </button>
+    </div>
+    <div class="col-4 d-flex justify-content-center align-items-center border-right">
+      <button
+        mat-button
+        color="info"
+        class="mat-flex-button font-size-14px"
+        [cdkCopyToClipboard]="potentialClient.contacts?.email"
+        *ngIf="potentialClient.contacts?.email"
+        [matTooltip]="potentialClient.contacts?.email">
+        <i class="fas fa-envelope mr-1"></i>
+        <span
+          appHighlight
+          [searchedWords]="filterForm.controls.Filter.value"
+          [text]="potentialClient.contacts?.email">
+        </span>
+      </button>
     </div>
   </div>
 </ng-template>
@@ -490,28 +520,19 @@
   <app-loader></app-loader>
 </ng-template>
 
-<ng-template #lastEvent let-lastEvent="lastEvent">
-  <div class="last-event">
-    <div class="d-flex align-items-start">
-      <span class="border-right font-weight-Semibold font-size-14px pr-2">
-        <span>{{lastEvent.date | date: 'dd MMM y'}}</span>
-        -
-        <span *ngIf="lastEvent.notificationDate"
-          [ngClass]="{'color-red font-weight-bold': checkNotificationDate(lastEvent.notificationDate)}">{{lastEvent.notificationDate | date: 'dd MMM y'}}</span>
-      </span>
-      <div class="last-event__comment font-size-14px px-2"
-           appHighlight
-           [searchedWords]="filterForm.controls.Filter.value"
-           [text]="lastEvent.comment">
-      </div>
-      <div class="dd-flex align-items-center ml-auto">
-        <span>
-          {{ lastEvent.eventsResult }}
-        </span>
-        <span>
-          {{ lastEvent.eventAction }}
-        </span>
-      </div>
-    </div>
-  </div>
-</ng-template>
+<!--      <div class="last-event__comment font-size-14px px-2"-->
+<!--           appHighlight-->
+<!--           [searchedWords]="filterForm.controls.Filter.value"-->
+<!--           [text]="lastEvent.comment">-->
+<!--      </div>-->
+<!--      <div class="dd-flex align-items-center ml-auto">-->
+<!--        <span>-->
+<!--          {{ lastEvent.eventsResult }}-->
+<!--        </span>-->
+<!--        <span>-->
+<!--          {{ lastEvent.eventAction }}-->
+<!--        </span>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</ng-template>-->

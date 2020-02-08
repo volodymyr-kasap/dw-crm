@@ -109,6 +109,11 @@
       font-weight: bold;
     }
   }
+
+  &__result,
+  &__action{
+    border-radius: 8px;
+  }
 }
 
 
