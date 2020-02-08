@@ -14,10 +14,9 @@
   <div class="container-fluid">
     <div class="row">
 
-      <section class="col-lg-3 col-sm-12">
+      <section class="col-xl-3 col-lg-12">
         <div class="row sticky">
-          <form
-            class="col-lg-12 col-sm-6"
+          <form class="col-xl-12 col-md-6"
             [formGroup]="filterForm">
             <mat-form-field class="col-12">
               <input matInput
@@ -73,80 +72,146 @@
               </sat-datepicker>
             </mat-form-field>
           </form>
-          <div class="col-lg-12 col-sm-6 mb-3">
-            <!--Country-->
-            <button
-              mat-raised-button
-              color="primary"
-              class="col-lg-4 col-sm-12"
-              (menuOpened)="countryName.value =''"
-              [matMenuTriggerFor]="Country">
-              Страна
-            </button>
-            <mat-menu
-              #Country>
-              <mat-form-field class="width-100 px-2" >
-                <input matInput
-                       placeholder="Поиск"
-                       name="countrySearch"
-                       #countryName
-                       (click)="$event.stopPropagation();">
-              </mat-form-field>
-              <div class="px-2 py-1"
-                   *ngFor="let country of countriesList"
-                   [ngClass]="{'d-none': !country.body.name.toLowerCase().includes(countryName.value.toLowerCase())}">
-                <mat-checkbox
-                  [ngModel]="country.selected"
-                  (change)="country.selected = !country.selected; filterPotentialClients()"
-                  (click)="$event.stopPropagation();">
-                  {{ country.body.name }}
-                </mat-checkbox>
+          <div class="col-xl-12 col-md-6 mb-3">
+            <div class="row mx-0">
+              <!--Country-->
+              <div class="col-6 mb-2">
+                <button
+                  mat-raised-button
+                  color="primary"
+                  class="width-100 font-size-12px mat-flex-button"
+                  (menuOpened)="countryName.value =''"
+                  [matMenuTriggerFor]="Country">
+                  Страна
+                </button>
+                <mat-menu
+                  #Country>
+                  <mat-form-field class="width-100 px-2" >
+                    <input matInput
+                           placeholder="Поиск"
+                           name="countrySearch"
+                           #countryName
+                           (click)="$event.stopPropagation();">
+                  </mat-form-field>
+                  <div class="px-2 py-1"
+                       *ngFor="let country of countriesList"
+                       [ngClass]="{'d-none': !country.body.name.toLowerCase().includes(countryName.value.toLowerCase())}">
+                    <mat-checkbox
+                      [ngModel]="country.selected"
+                      (change)="country.selected = !country.selected; filterPotentialClients()"
+                      (click)="$event.stopPropagation();">
+                      {{ country.body.name }}
+                    </mat-checkbox>
+                  </div>
+                </mat-menu>
               </div>
-            </mat-menu>
-            <!--ClientType-->
-            <button
-              mat-raised-button
-              color="primary"
-              class="col-lg-4 col-sm-12"
-              [matMenuTriggerFor]="ClientType">
-              Тип
-            </button>
-            <mat-menu
-              #ClientType>
-              <div class="px-2 py-1"
-                *ngFor="let type of clientTypeList">
-                <mat-checkbox
-                  [ngModel]="type.selected"
-                  (change)="type.selected = !type.selected; filterPotentialClients()"
-                  (click)="$event.stopPropagation();">
-                  {{ type.body.name }}
-                </mat-checkbox>
+              <!--ClientType-->
+              <div class="col-6 mb-2">
+                <button
+                  mat-raised-button
+                  color="primary"
+                  class="width-100 font-size-12px mat-flex-button"
+                  [matMenuTriggerFor]="ClientType">
+                  Тип
+                </button>
+                <mat-menu
+                  #ClientType>
+                  <div class="px-2 py-1"
+                       *ngFor="let type of clientTypeList">
+                    <mat-checkbox
+                      [ngModel]="type.selected"
+                      (change)="type.selected = !type.selected; filterPotentialClients()"
+                      (click)="$event.stopPropagation();">
+                      {{ type.body.name }}
+                    </mat-checkbox>
+                  </div>
+                </mat-menu>
               </div>
-            </mat-menu>
-            <!--Managers-->
-            <button mat-raised-button
-                    color="primary"
-                    class="col-lg-4 col-sm-12"
-                    (menuOpened)="managerName.value =''"
-                    [matMenuTriggerFor]="Manager">Менеджер</button>
-            <mat-menu
-              #Manager>
-              <mat-form-field class="width-100 px-2">
-                <input matInput
-                       placeholder="Поиск"
-                       name="managersSearch"
-                       #managerName
-                       (click)="$event.stopPropagation();">
-              </mat-form-field>
-              <div class="px-2 py-1"
-                   *ngFor="let manager of managersList"
-                   [ngClass]="{'d-none': !manager.body.name.toLowerCase().includes(managerName.value.toLowerCase())}">
-                <mat-checkbox
-                  [ngModel]="manager.selected"
-                  (change)="manager.selected = !manager.selected; filterPotentialClients()"
-                  (click)="$event.stopPropagation();">{{manager.body.name}}</mat-checkbox>
+              <!--Managers-->
+              <div class="col-6 mb-2">
+                <button
+                  mat-raised-button
+                  color="primary"
+                  class="width-100 font-size-12px mat-flex-button"
+                  (menuOpened)="managerName.value =''"
+                  [matMenuTriggerFor]="Manager">Менеджер</button>
+                <mat-menu
+                  #Manager>
+                  <mat-form-field class="width-100 px-2">
+                    <input matInput
+                           placeholder="Поиск"
+                           name="managersSearch"
+                           #managerName
+                           (click)="$event.stopPropagation();">
+                  </mat-form-field>
+                  <div class="px-2 py-1"
+                       *ngFor="let manager of managersList"
+                       [ngClass]="{'d-none': !manager.body.name.toLowerCase().includes(managerName.value.toLowerCase())}">
+                    <mat-checkbox
+                      [ngModel]="manager.selected"
+                      (change)="manager.selected = !manager.selected; filterPotentialClients()"
+                      (click)="$event.stopPropagation();">{{manager.body.name}}</mat-checkbox>
+                  </div>
+                </mat-menu>
               </div>
-            </mat-menu>
+              <!--EventResult -->
+              <div class="col-6 mb-2">
+                <button
+                  mat-raised-button
+                  color="primary"
+                  class="width-100 font-size-12px mat-flex-button"
+                  [matMenuTriggerFor]="LastEventResultTypesList">Последнее событие</button>
+                <mat-menu #LastEventResultTypesList>
+                  <div class="px-2 py-1"
+                       *ngFor="let result of eventResult">
+                    <mat-checkbox
+                      [ngModel]="result.selected"
+                      (change)="result.selected = !result.selected; filterPotentialClients()"
+                      (click)="$event.stopPropagation();">{{result.body.text}}</mat-checkbox>
+                  </div>
+                </mat-menu>
+              </div>
+              <!--EventType -->
+              <div class="col-6 mb-2">
+                <button
+                  mat-raised-button
+                  color="primary"
+                  class="width-100 font-size-12px mat-flex-button"
+                  [matMenuTriggerFor]="LastEventTypesList">Последнее действие</button>
+                <mat-menu #LastEventTypesList>
+                  <div class="px-2 py-1" *ngFor="let type of eventAction">
+                    <mat-checkbox
+                      [ngModel]="type.selected"
+                      (change)="type.selected = !type.selected; filterPotentialClients()"
+                      (click)="$event.stopPropagation();">{{type.body.text}}</mat-checkbox>
+                  </div>
+                </mat-menu>
+              </div>
+              <!--WayToAdd -->
+              <div class="col-6 mb-2">
+                <button
+                  mat-raised-button
+                  color="primary"
+                  class="width-100 font-size-12px mat-flex-button"
+                  [matMenuTriggerFor]="WayToAddList">Способ добавления</button>
+                <mat-menu #WayToAddList>
+                  <div class="px-2 py-1" *ngFor="let way of wayToAddList">
+                    <mat-checkbox
+                      [ngModel]="way.selected"
+                      (change)="way.selected = !way.selected; filterPotentialClients()"
+                      (click)="$event.stopPropagation();">{{way.body.title}}</mat-checkbox>
+                  </div>
+                </mat-menu>
+              </div>
+            </div>
+            <div class="row mx-0">
+              <div class="col-12 my-3">
+                <mat-checkbox
+                  [(ngModel)]="showTestClients"
+                  (change)="filterPotentialClients()">Только тестовые</mat-checkbox>
+              </div>
+
+            </div>
           </div>
           <div class="col-12">
             <mat-chip-list>
@@ -209,13 +274,45 @@
                 {{manager.body.name}}
                 <i matChipRemove class="fas fa-times d-flex align-items-center"></i>
               </mat-chip>
+              <mat-chip
+                class="mb-3 chip-filter-item "
+                *ngFor="let eventResult of selectedEventResult()"
+                [removable]="true"
+                (removed)="eventResult.selected = false; filterPotentialClients();">
+                {{eventResult.body.text}}
+                <i matChipRemove class="fas fa-times d-flex align-items-center"></i>
+              </mat-chip>
+              <mat-chip
+                class="mb-3 chip-filter-item "
+                *ngFor="let eventType of selectedEventType()"
+                [removable]="true"
+                (removed)="eventType.selected = false; filterPotentialClients();">
+                {{eventType.body.text}}
+                <i matChipRemove class="fas fa-times d-flex align-items-center"></i>
+              </mat-chip>
+              <mat-chip
+                class="mb-3 chip-filter-item "
+                *ngFor="let way of selectedWayToAdd()"
+                [removable]="true"
+                (removed)="way.selected = false; filterPotentialClients();">
+                {{way.body.title}}
+                <i matChipRemove class="fas fa-times d-flex align-items-center"></i>
+              </mat-chip>
+              <mat-chip
+                class="mb-3 chip-filter-item p-3"
+                *ngIf="showTestClients"
+                [removable]="true"
+                (removed)="showTestClients = false; filterPotentialClients()">
+                Показывать только тестовые
+                <i matChipRemove class="fas fa-times d-flex align-items-center"></i>
+              </mat-chip>
 
             </mat-chip-list>
           </div>
         </div>
       </section>
 
-      <section class="potential-clients col-lg-9 col-sm-12">
+      <section class="potential-clients col-xl-9 col-lg-12">
         <div
           *ngIf="urgentPotentialClients"
           class="potential-clients-urgent">
@@ -278,8 +375,10 @@
   <div class="row">
     <div class="row col-lg-5 col-sm-12 mb-3 align-items-center">
 
-        <span class="col-2 potential-client__id border-right">
-          {{ potentialClient.id }}
+        <span class="col-2 potential-client__id border-right"
+          appHighlight
+          [text]="potentialClient.id.toString()"
+          [searchedWords]="filterForm.controls.Filter.value">
         </span>
 
         <span class="col-2 potential-client__type border-right">
@@ -297,8 +396,10 @@
         <a
         class="potential-client__name text-overflow-ellipsis col-6"
         [routerLink]="['/']">
-        <span>
-          {{potentialClient.companyName}}
+        <span
+          appHighlight
+          [text]="potentialClient.companyName"
+          [searchedWords]="filterForm.controls.Filter.value">
         </span>
       </a>
     </div>
@@ -326,81 +427,91 @@
       </ul>
     </div>
   </div>
-  <div class="row"></div>
-  <div class="row"></div>
+  <div class="row">
+    <div class="col-12 mb-3">
+      <div *ngIf="potentialClient.lastEvent">
+        <ng-container [ngTemplateOutlet]="lastEvent"
+                      [ngTemplateOutletContext]="{lastEvent: potentialClient.lastEvent}"></ng-container>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <div class="row potential-client-contact">
+        <div class="col-4 d-flex justify-content-center align-items-center border-right">
+          <span
+            *ngIf="potentialClient.contacts?.name"
+            class="potential-client-contact__name text-overflow-ellipsis"
+            [matTooltip]="potentialClient.contacts?.name"
+            appHighlight
+            [text]="potentialClient.contacts?.name"
+            [searchedWords]="filterForm.controls.Filter.value">
+          </span>
+        </div>
+        <div class="col-4 d-flex justify-content-center align-items-center border-right">
+          <button
+            mat-button
+            color="info"
+            class="font-size-14px"
+            [cdkCopyToClipboard]="potentialClient.contacts?.phone"
+            *ngIf="potentialClient.contacts?.phone"
+            [matTooltip]="potentialClient.contacts?.phone">
+            <i class="fas fa-phone mr-1"></i>
+            <span
+              appHighlight
+              [searchedWords]="filterForm.controls.Filter.value"
+              [text]="potentialClient.contacts?.phone">
+            </span>
+          </button>
+        </div>
+        <div class="col-4 d-flex justify-content-center align-items-center border-right">
+          <button
+            mat-button
+            color="info"
+            class="font-size-14px"
+            [cdkCopyToClipboard]="potentialClient.contacts?.email"
+            *ngIf="potentialClient.contacts?.email"
+            [matTooltip]="potentialClient.contacts?.email">
+            <i class="fas fa-envelope mr-1"></i>
+            <span
+              appHighlight
+              [searchedWords]="filterForm.controls.Filter.value"
+              [text]="potentialClient.contacts?.email">
+            </span>
+          </button>
+      </div>
+    </div>
 
-<!--  <div class="row mx-0 justify-content-between align-items-center col-12 px-0 align-self-end">-->
-<!--    <div class="col">-->
-<!--      <div *ngIf="potentialClient.DraftEvent">-->
-<!--        <ng-container [ngTemplateOutlet]="lastEvent"-->
-<!--                      [ngTemplateOutletContext]="{lastEvent: potentialClient.DraftEvent}"></ng-container>-->
-<!--      </div>-->
-<!--      <div *ngIf="potentialClient.LastEvent && !potentialClient.DraftEvent">-->
-<!--        <ng-container [ngTemplateOutlet]="lastEvent"-->
-<!--                      [ngTemplateOutletContext]="{lastEvent: potentialClient.LastEvent}"></ng-container>-->
-<!--      </div>-->
-
-<!--      <div class="col d-flex px-0 align-items-center client-contact"-->
-<!--           *ngIf="potentialClient.Contacts">-->
-<!--        <div class="font-weight-Bold border-right pl-0 pr-2 font-size-14px mr-3 client-contact__name">-->
-<!--                      <span class="text-overflow-ellipsis d-block"-->
-<!--                            *ngIf="potentialClient.Contacts.Name"-->
-<!--                            [matTooltip]="potentialClient.Contacts.Name"-->
-<!--                            appHighlight-->
-<!--                            [searchedWords]="filterForm.controls.Filter.value"-->
-<!--                            [text]="potentialClient.Contacts.Name"-->
-<!--                            classToApply="selected-color">-->
-<!--                      </span>-->
-<!--        </div>-->
-<!--        <div class="font-weight-Regular border-right pl-0 pr-2 font-size-14px mr-3 client-contact__position px-0">-->
-<!--                      <span class="text-overflow-ellipsis d-block"-->
-<!--                            *ngIf="potentialClient.Contacts.Position"-->
-<!--                            [matTooltip]="potentialClient.Contacts.Position"-->
-<!--                            appHighlight-->
-<!--                            [searchedWords]="filterForm.controls.Filter.value"-->
-<!--                            [text]="potentialClient.Contacts.Position"-->
-<!--                            classToApply="selected-color">-->
-<!--                      </span>-->
-<!--        </div>-->
-<!--        <button mat-raised-button-->
-<!--                color="info"-->
-<!--                class="font-size-14px mr-3 "-->
-<!--                *ngIf="potentialClient.Contacts.Phone"-->
-<!--                [matTooltip]="potentialClient.Contacts.Phone"-->
-<!--                ngxClipboard-->
-<!--                [cbContent]="potentialClient.Contacts.Phone"-->
-<!--        >-->
-<!--          <i class="fas fa-phone mr-1" ></i>-->
-<!--          <span appHighlight-->
-<!--                [searchedWords]="filterForm.controls.Filter.value"-->
-<!--                [text]="potentialClient.Contacts.Phone | slice: 0: 15"-->
-<!--                classToApply="selected-color">-->
-<!--                      </span>-->
-<!--        </button>-->
-<!--        <button mat-raised-button-->
-<!--                color="info"-->
-<!--                class="border-left"-->
-<!--                *ngIf="potentialClient.Contacts.Email"-->
-<!--                [matTooltip]="potentialClient.Contacts.Email"-->
-<!--                ngxClipboard-->
-<!--                [cbContent]="potentialClient.Contacts.Email"-->
-<!--        >-->
-<!--          <i class="fas fa-envelope mr-1" ></i>-->
-<!--          <span appHighlight-->
-<!--                [searchedWords]="filterForm.controls.Filter.value"-->
-<!--                [text]="potentialClient.Contacts.Email"-->
-<!--                classToApply="selected-color">-->
-<!--                      </span>-->
-<!--        </button>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--    <button mat-raised-button-->
-<!--            color="primary"-->
-<!--            class="mat-button-small ml-auto align-self-start"-->
-<!--            (click)="createAction(potentialClient.Id)">+</button>-->
-<!--  </div>-->
+    </div>
+  </div>
 </ng-template>
 
 <ng-template #loader>
   <app-loader></app-loader>
+</ng-template>
+
+<ng-template #lastEvent let-lastEvent="lastEvent">
+  <div class="last-event">
+    <div class="d-flex align-items-start">
+      <span class="border-right font-weight-Semibold font-size-14px pr-2">
+        <span>{{lastEvent.date | date: 'dd MMM y'}}</span>
+        -
+        <span *ngIf="lastEvent.notificationDate"
+          [ngClass]="{'color-red font-weight-bold': checkNotificationDate(lastEvent.notificationDate)}">{{lastEvent.notificationDate | date: 'dd MMM y'}}</span>
+      </span>
+      <div class="last-event__comment font-size-14px px-2"
+           appHighlight
+           [searchedWords]="filterForm.controls.Filter.value"
+           [text]="lastEvent.comment">
+      </div>
+      <div class="dd-flex align-items-center ml-auto">
+        <span>
+          {{ lastEvent.eventsResult }}
+        </span>
+        <span>
+          {{ lastEvent.eventAction }}
+        </span>
+      </div>
+    </div>
+  </div>
 </ng-template>

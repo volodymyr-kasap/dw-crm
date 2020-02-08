@@ -32,7 +32,7 @@ export const initialState: State = {
     new EventsAction(EventsActionEnum.Meeting, 'Встреча', 'fas fa-handshake', 'color-4e70ba', 'bg-c51c24 text-white'),
     new EventsAction(EventsActionEnum.Carry, 'Перенос', 'fas fa-random', '', 'bg-000000 text-white'),
     new EventsAction(EventsActionEnum.NoAnswer, 'Нет ответа', 'fas fa-phone-slash', 'color-c51c24', 'bg-c51c24 text-white'),
-    new EventsAction(EventsActionEnum.Presentation, 'Нет ответа', 'fas fa-phone-slash', 'color-c51c24', 'bg-c51c24 text-white')
+    new EventsAction(EventsActionEnum.Presentation, 'Презентация', 'fas fas fa-eye', 'color-c51c24', 'bg-e71baa text-white')
   ],
   eventResultList: [
     new EventsResult(EventsResultEnum.NotProcessed, 'text-secondary', '',  'Не обработан', 'bd-E6E6E6 color-707070'),

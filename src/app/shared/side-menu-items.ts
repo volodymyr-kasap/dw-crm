@@ -10,11 +10,6 @@ export const SideMenuItems: IMenuGroup[] = [
         iconClass: 'fas fa-home',
       },
       {
-        name: 'Клиенты',
-        link: '/Clients/Main',
-        iconClass: 'fas fa-user-tie',
-      },
-      {
         name: 'Потенц. клиенты',
         link: '/PotentialClients/List',
         iconClass: 'fas fa-user-clock',
@@ -23,13 +18,7 @@ export const SideMenuItems: IMenuGroup[] = [
         name: 'Пользователи',
         link: '/Users',
         iconClass: 'fas fa-user-cog',
-      },
-      {
-        name: 'Управление',
-        link: '/Admin',
-        iconClass: 'fas fa-toolbox'
       }
-
     ]
   }
 ];

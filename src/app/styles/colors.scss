@@ -8,6 +8,12 @@ $grey-color: #c1c1c1;
 $link-color: #6884c1;
 $white-color: #ffffff;
 $main-bg-color: #f2f2f2;
+$selection-color: #e71baa;
+$red-color: #CE1313;
+
+.color-red {
+  color: $red-color !important;
+}
 
 .color-title {
   color: $title-color !important;
@@ -15,6 +21,10 @@ $main-bg-color: #f2f2f2;
 
 .bg-white {
   background-color: $white-color !important;
+}
+
+.color-selection {
+  color: $selection-color !important;
 }
 
 

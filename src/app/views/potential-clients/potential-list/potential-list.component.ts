@@ -33,7 +33,7 @@ export class PotentialListComponent implements OnInit, OnDestroy {
   managersList: ISelectedFilter<Manager>[] = [];
   countriesList: ISelectedFilter<Country>[] = [];
   clientTypeList: ISelectedFilter<CompanyType>[] = [];
-  eventsAction: ISelectedFilter<EventsAction>[]  = [];
+  eventAction: ISelectedFilter<EventsAction>[]  = [];
   eventResult: ISelectedFilter<EventsResult>[] = [];
   wayToAddList: ISelectedFilter<WayToAdd>[] = [];
   showTestClients = false;
@@ -67,7 +67,7 @@ export class PotentialListComponent implements OnInit, OnDestroy {
           this.countriesList = state.country.countryList.map( x => ({selected: false, body: x }));
           this.wayToAddList = state.potential.wayToAddList.map( x => ({selected: false, body: x }));
           this.managersList = state.potential.managersList.map( x => ({selected: false, body: x }));
-          this.eventsAction = state.potential.eventsActionList.map( x => ({selected: false, body: x }));
+          this.eventAction = state.potential.eventsActionList.map( x => ({selected: false, body: x }));
           this.eventResult = state.potential.eventResultList.map( x => ({selected: false, body: x }));
           this.clientTypeList = state.potential.companyTypesList.map( x => ({selected: false, body: x }));
           this.filterPotentialClients();
@@ -86,7 +86,9 @@ export class PotentialListComponent implements OnInit, OnDestroy {
     this.store.select(state => state.potential.clientList)
       .subscribe(clients => {
         if (clients) {
-          this.potentialClients = clients;
+          this.potentialClients = clients.sort((x , y) => {
+            return new Date(y.additionDate).getTime() - new Date(x.additionDate).getTime();
+          });
         }
       });
 
@@ -175,6 +177,40 @@ export class PotentialListComponent implements OnInit, OnDestroy {
       });
     }
 
+    const selectedEventResult = this.selectedEventResult().map( x => x.body.id);
+    if (selectedEventResult.length > 0) {
+      this.potentialClients = this.potentialClients.filter(client => {
+        if (client.lastEvent) {
+          return selectedEventResult.includes(client.lastEvent.eventsResult);
+        }
+        return false;
+      });
+    }
+
+    const selectedEventType = this.selectedEventType().map( x => x.body.id);
+    if (selectedEventType.length > 0) {
+      this.potentialClients = this.potentialClients.filter(client => {
+        if (client.lastEvent) {
+          return selectedEventType.includes(client.lastEvent.eventAction);
+        }
+        return false;
+      });
+    }
+
+    const selectedWayToAddTypes = this.selectedWayToAdd().map(x => x.body.id);
+    if (selectedWayToAddTypes.length > 0) {
+      this.potentialClients = this.potentialClients.filter(client => {
+        if (client.wayToAdd !== null) {
+          return selectedWayToAddTypes.includes((<WayToAdd>client.wayToAdd).id);
+        }
+        return false;
+      });
+    }
+
+    if (this.showTestClients) {
+      this.potentialClients = this.potentialClients.filter(client => client.isDemo);
+    }
+
     if (this.paginator) {
       this.paginator.firstPage();
     }
@@ -224,6 +260,18 @@ export class PotentialListComponent implements OnInit, OnDestroy {
     return this.managersList.filter(x => x.selected);
   }
 
+  selectedEventResult() {
+    return this.eventResult.filter(x => x.selected);
+  }
+
+  selectedEventType() {
+    return this.eventAction.filter(x => x.selected);
+  }
+
+  selectedWayToAdd() {
+    return this.wayToAddList.filter(x => x.selected);
+  }
+
   /* pagination */
   initEventPage() {
     this.pageEvent.previousPageIndex = 0;
@@ -237,6 +285,19 @@ export class PotentialListComponent implements OnInit, OnDestroy {
     this.pageEvent.pageIndex = this.pageEvent.pageIndex + 1;
   }
   /* END pagination */
+
+  checkNotificationDate(date: Date) {
+    const day = 86400000;
+    if (date !== null) {
+      const notificationDate = new Date(date).setHours(0, 0, 0, 0);
+      const dateNow = new Date().setHours(0, 0, 0, 0);
+      if (notificationDate >= dateNow) {
+        const days = (notificationDate - dateNow) / day;
+        return 5 > days && days >= 0;
+      }
+    }
+    return false;
+  }
 
 
 }

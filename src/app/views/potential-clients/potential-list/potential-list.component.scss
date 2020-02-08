@@ -85,6 +85,30 @@
     list-style: unset;
   }
 
+  &-contact {
+    &__name {
+      font-size: 14px;
+      font-weight: 600;
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+  }
+
+}
+
+.last-event {
+  &__comment {
+    max-height: 60px;
+    overflow: hidden;
+    white-space: pre-wrap;
+    ::ng-deep img {
+      display: none!important;
+    }
+    ::ng-deep img:before {
+      content: '...';
+      font-weight: bold;
+    }
+  }
 }
 
 

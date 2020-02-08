@@ -49,6 +49,7 @@ import {RouterModule} from '@angular/router';
 import {AvatarModule} from 'ngx-avatar';
 import {SatDatepickerModule, SatNativeDateModule} from 'saturn-datepicker';
 import {LoaderComponent} from '../components/loader/loader.component';
+import {HighlightDirective} from '../core/directives/highlight.directive';
 
 const matModules = [
   A11yModule,
@@ -97,11 +98,13 @@ const matModules = [
 ];
 
 
+// @ts-ignore
 @NgModule({
   declarations: [
     QueryProgressBarComponent,
     ListComponent,
-    LoaderComponent
+    LoaderComponent,
+    HighlightDirective
   ],
   imports: [
     CommonModule,
@@ -111,7 +114,8 @@ const matModules = [
     RouterModule,
     AvatarModule,
     SatDatepickerModule,
-    SatNativeDateModule
+    SatNativeDateModule,
+    ClipboardModule
   ],
   providers: [
   ],
@@ -126,7 +130,9 @@ const matModules = [
 
     QueryProgressBarComponent,
     ListComponent,
-    LoaderComponent
+    LoaderComponent,
+
+    HighlightDirective
   ]
 
 })
