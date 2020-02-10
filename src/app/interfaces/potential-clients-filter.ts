@@ -14,5 +14,6 @@ export interface IPotentialClientsFilter {
   managersList: ISelectedFilter<Manager>[],
   countriesList: ISelectedFilter<Country>[],
   clientTypeList: ISelectedFilter<CompanyType>[],
+  hideInterface: {[key: number]: {show: boolean; name: string}},
   showTestClients: boolean
 }

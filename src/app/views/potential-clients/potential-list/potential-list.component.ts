@@ -17,11 +17,31 @@ import {CompanyType} from '../../../models/company-type.model';
 import {LocalStorageService} from '../../../core/services/local-storage.service';
 import {StorageKey} from '../../../shared/storage-keys';
 import {IPotentialClientsFilter} from '../../../interfaces/potential-clients-filter';
+import {animate, state, style, transition, trigger} from '@angular/animations';
+
+enum hideInterfaceEnum {
+  managers,
+  wayToAdd,
+  notificationDate,
+  comment,
+  actionType,
+  actionResult,
+  contactName,
+  contactPhone,
+  contactEmail
+}
 
 @Component({
   selector: 'app-potential-list',
   templateUrl: './potential-list.component.html',
-  styleUrls: ['./potential-list.component.scss']
+  styleUrls: ['./potential-list.component.scss'],
+  animations: [
+    trigger('hideInterface', [
+      state('initial', style({height: '*', opacity: 1})),
+      state('expanded', style({height: 0, opacity: 0})),
+      transition('initial <=> expanded', animate('0.5s')),
+    ])
+  ]
 })
 export class PotentialListComponent implements OnInit, OnDestroy {
 
@@ -44,6 +64,19 @@ export class PotentialListComponent implements OnInit, OnDestroy {
 
   pageEvent: PageEvent = new PageEvent();
   pageSizeOptions: number[] = [10, 25, 50, 100];
+
+  public hideInterfaceEnum = hideInterfaceEnum;
+  public hideInterface: { [key: number]: {show: boolean; name: string}} = {
+    [hideInterfaceEnum.managers]: {show: true, name: 'Менеджеры'},
+    [hideInterfaceEnum.wayToAdd]: {show: true, name: 'Способ добавлени'},
+    [hideInterfaceEnum.notificationDate]: {show: true, name: 'Когда перезвонить'},
+    [hideInterfaceEnum.comment]: {show: true, name: 'Последний комментарий'},
+    [hideInterfaceEnum.actionResult]: {show: true, name: 'Последние событие'},
+    [hideInterfaceEnum.actionType]: {show: true, name: 'Последние действие'},
+    [hideInterfaceEnum.contactEmail]: {show: true, name: 'Email'},
+    [hideInterfaceEnum.contactName]: {show: true, name: 'Имя'},
+    [hideInterfaceEnum.contactPhone]: {show: true, name: 'Телефон'}
+  };
 
   constructor(
     private store: Store<indexReducer.State>,
@@ -321,6 +354,7 @@ export class PotentialListComponent implements OnInit, OnDestroy {
     this.managersList.forEach(x => x.selected = false);
     this.countriesList.forEach(x => x.selected = false);
     this.clientTypeList.forEach(x => x.selected = false);
+    Object.values(this.hideInterface).forEach(x => x.show = true);
     this.showTestClients = false;
     this.localStorageService.remove(StorageKey.Potential_Clients_Filter);
   }
@@ -336,6 +370,7 @@ export class PotentialListComponent implements OnInit, OnDestroy {
           countriesList: this.countriesList,
           clientTypeList: this.clientTypeList,
           showTestClients: this.showTestClients,
+          hideInterface: this.hideInterface
         });
   }
 
@@ -351,6 +386,7 @@ export class PotentialListComponent implements OnInit, OnDestroy {
         this.countriesList = filter.countriesList;
         this.clientTypeList = filter.clientTypeList;
         this.showTestClients = filter.showTestClients;
+        this.hideInterface = filter.hideInterface;
       }
     } catch (e) {
       this.localStorageService.remove(StorageKey.Potential_Clients_Filter);

@@ -203,6 +203,23 @@
                   </div>
                 </mat-menu>
               </div>
+              <!-- Interface -->
+              <div class="col-6 mb-2">
+                <button
+                  mat-raised-button
+                  color="primary"
+                  class="width-100 font-size-12px mat-flex-button"
+                   [matMenuTriggerFor]="InterfaceMenu">Интерфейс</button>
+                <mat-menu #InterfaceMenu>
+                  <div class="px-2 py-1" *ngFor="let block of hideInterface | keyvalue">
+                    <mat-checkbox
+                      [ngModel]="hideInterface[block.key].show"
+                      (change)="hideInterface[block.key].show = !hideInterface[block.key].show; saveLocalStorage();"
+                      (click)="$event.stopPropagation();">{{ hideInterface[block.key].name }}</mat-checkbox>
+                  </div>
+                </mat-menu>
+              </div>
+
             </div>
             <div class="row mx-0">
               <div class="col-12 my-3">
@@ -415,7 +432,8 @@
     <div class="row col-lg-7 col-sm-12 mb-3 align-items-center">
       <span class="col-3"></span>
       <span class="potential-client__way-to-add col-4 border-right border-left"
-         *ngIf="potentialClient.wayToAdd !== null">
+         *ngIf="potentialClient.wayToAdd !== null"
+          [@hideInterface]="hideInterface[hideInterfaceEnum.wayToAdd].show ? 'initial': 'expanded'">
         <i class="fas"
            [ngClass]="potentialClient.wayToAdd.icon"></i>
         {{ potentialClient.wayToAdd.title }}
@@ -424,7 +442,8 @@
         [ngClass]="{'border-right': potentialClient.managers.length > 0}">
         {{potentialClient.additionDate | date}}
       </span>
-      <ul class="potential-client__managers col-2">
+      <ul class="potential-client__managers col-2"
+          [@hideInterface]="hideInterface[hideInterfaceEnum.managers].show ? 'initial': 'expanded'">
         <li class="mr-1"
             *ngFor="let manager of potentialClient.managers"
             [matTooltip]="manager.name">
@@ -439,7 +458,8 @@
   <div class="row">
   <div class="col-8 mb-3 row align-items-center">
     <span class="col-4 border-right font-weight-Semibold font-size-14px pr-2"
-      *ngIf="potentialClient.lastEvent">
+      *ngIf="potentialClient.lastEvent"
+      [@hideInterface]="hideInterface[hideInterfaceEnum.notificationDate].show ? 'initial': 'expanded'">
       <span>{{potentialClient.lastEvent.date | date: 'dd MMM y'}}</span>
       -
       <span *ngIf="potentialClient.lastEvent.notificationDate"
@@ -449,6 +469,7 @@
     </span>
     <div class="col-8 last-event__comment font-size-14px"
          *ngIf="potentialClient.lastEvent"
+         [@hideInterface]="hideInterface[hideInterfaceEnum.comment].show ? 'initial': 'expanded'"
          appHighlight
          [searchedWords]="filterForm.controls.Filter.value"
          [text]="potentialClient.lastEvent.comment.toString()">
@@ -458,12 +479,14 @@
        *ngIf="potentialClient.lastEvent">
       <span class="px-3 py-2 font-size-14px mr-3 last-event__result"
          *ngIf="findEventResult(potentialClient.lastEvent.eventsResult) as eventResultBody"
+         [@hideInterface]="hideInterface[hideInterfaceEnum.actionResult].show ? 'initial': 'expanded'"
          [ngClass]="eventResultBody.colorClass">
         <i [ngClass]="eventResultBody.iconClass + ' mr-1'"></i>
         {{eventResultBody.text}}
       </span>
       <span class="px-3 py-2 font-size-14px last-event__action font-weight-regular"
-            *ngIf="findEventAction(potentialClient.lastEvent.eventAction) as eventActionBody"
+         *ngIf="findEventAction(potentialClient.lastEvent.eventAction) as eventActionBody"
+         [@hideInterface]="hideInterface[hideInterfaceEnum.actionType].show ? 'initial': 'expanded'"
          [ngClass]="eventActionBody.itemClass">
         <i [ngClass]="eventActionBody.iconClass + ' mr-1'"></i>
         {{eventActionBody.text}}
@@ -471,7 +494,8 @@
   </div>
   </div>
   <div class="row potential-client-contact">
-    <div class="col-4 d-flex justify-content-center align-items-center border-right">
+    <div class="col-4 d-flex justify-content-center align-items-center border-right"
+         [@hideInterface]="hideInterface[hideInterfaceEnum.contactName].show ? 'initial': 'expanded'">
           <span
             *ngIf="potentialClient.contacts?.name"
             class="potential-client-contact__name text-overflow-ellipsis"
@@ -481,7 +505,8 @@
             [searchedWords]="filterForm.controls.Filter.value">
           </span>
     </div>
-    <div class="col-4 d-flex justify-content-center align-items-center border-right">
+    <div class="col-4 d-flex justify-content-center align-items-center border-right"
+         [@hideInterface]="hideInterface[hideInterfaceEnum.contactPhone].show ? 'initial': 'expanded'">
       <button
         mat-button
         color="info"
@@ -497,7 +522,8 @@
         </span>
       </button>
     </div>
-    <div class="col-4 d-flex justify-content-center align-items-center border-right">
+    <div class="col-4 d-flex justify-content-center align-items-center border-right"
+         [@hideInterface]="hideInterface[hideInterfaceEnum.contactEmail].show ? 'initial': 'expanded'">
       <button
         mat-button
         color="info"
