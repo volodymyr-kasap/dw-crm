@@ -1,3 +1,9 @@
+##### User login
+
+admin@dw.com:admin@dw.com
+
+Run `npm run server`
+
 # DwCrm
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.0-rc.7.
