@@ -33,7 +33,7 @@
     "rxjs": "~6.5.3",
     "saturn-datepicker": "^8.0.1",
     "tslib": "^1.10.0",
-    "zone.js": "~0.10.2"
+    "zone.js": "~0.14.3"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.900.1",
